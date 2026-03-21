@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MBX — Biblioteca Digital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .page-content { padding: 32px 28px; }
+    .search-bar { display: flex; gap: 12px; margin-bottom: 24px; }
+    .search-input-wrap { flex: 1; display: flex; align-items: center; gap: 10px; background: var(--surface); border: 1.5px solid var(--border); border-radius: 10px; padding: 10px 16px; font-size: 14px; color: var(--text-3); transition: border-color .15s; }
+    .search-input-wrap:focus-within { border-color: var(--text); }
+    .search-input-wrap input { border: none; outline: none; background: none; font-family: var(--font); font-size: 14px; color: var(--text); flex: 1; }
+    .book-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap: 16px; }
+    .book-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; cursor: pointer; transition: all .2s; }
+    .book-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .book-cover { height: 140px; display: flex; align-items: center; justify-content: center; font-size: 40px; position: relative; }
+    .book-cover-overlay { position: absolute; inset: 0; background: rgba(0,0,0,.04); }
+    .book-body { padding: 12px 14px; }
+    .book-body h5 { font-size: 13px; font-weight: 700; margin-bottom: 3px; letter-spacing: -.02em; line-height: 1.4; }
+    .book-body p { font-size: 11px; color: var(--text-3); }
+    .book-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
+    .book-size { font-size: 10.5px; color: var(--text-3); }
+  </style>
+</head>
+<body>
+<div class="app" id="app">
+  <div id="topbar-mount"></div>
+  <div class="app-body">
+    <div id="sidebar-mount"></div>
+    <main class="main">
+      <div class="page-content fade-in">
+        <div style="font-size:26px;font-weight:700;letter-spacing:-.03em;margin-bottom:6px">Biblioteca Digital</div>
+        <div style="font-size:14px;color:var(--text-3);margin-bottom:22px">Acervo completo de e-books, artigos e materiais</div>
+        <div class="search-bar">
+          <div class="search-input-wrap">🔍 <input type="text" placeholder="Buscar por título, autor ou tema..."></div>
+          <button class="btn btn-outline btn-sm">Filtrar ▾</button>
+        </div>
+        <div style="font-size:13px;color:var(--text-3);margin-bottom:16px">Mostrando 12 de 247 materiais</div>
+        <div class="book-grid">
+          <div class="book-card"><div class="book-cover" style="background:#F5F3EE">📘<div class="book-cover-overlay"></div></div><div class="book-body"><h5>Fundamentos de Estratégia</h5><p>Porter, M.</p><div class="book-footer"><span class="book-size">8.4 MB</span><span>↓</span></div></div></div>
+          <div class="book-card"><div class="book-cover" style="background:#EEF4FF">📗<div class="book-cover-overlay"></div></div><div class="book-body"><h5>Gestão de Pessoas na Era Digital</h5><p>Chiavenato, I.</p><div class="book-footer"><span class="book-size">5.1 MB</span><span>↓</span></div></div></div>
+          <div class="book-card"><div class="book-cover" style="background:#EDFAF3">📙<div class="book-cover-overlay"></div></div><div class="book-body"><h5>Finanças Corporativas</h5><p>Damodaran, A.</p><div class="book-footer"><span class="book-size">12.3 MB</span><span>↓</span></div></div></div>
+          <div class="book-card"><div class="book-cover" style="background:#FFF3EC">📒<div class="book-cover-overlay"></div></div><div class="book-body"><h5>Marketing Digital Avançado</h5><p>Kotler, P.</p><div class="book-footer"><span class="book-size">4.8 MB</span><span>↓</span></div></div></div>
+          <div class="book-card"><div class="book-cover" style="background:#F5EEFF">📓<div class="book-cover-overlay"></div></div><div class="book-body"><h5>Inovação Disruptiva</h5><p>Christensen, C.</p><div class="book-footer"><span class="book-size">6.2 MB</span><span>↓</span></div></div></div>
+          <div class="book-card"><div class="book-cover" style="background:#FFFBF0">📔<div class="book-cover-overlay"></div></div><div class="book-body"><h5>Liderança Situacional</h5><p>Hersey & Blanchard</p><div class="book-footer"><span class="book-size">3.5 MB</span><span>↓</span></div></div></div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

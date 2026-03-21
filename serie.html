@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MBX — Série Acadêmica</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .page-content { padding: 32px 28px; }
+    .serie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 18px; }
+    .serie-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; cursor: pointer; transition: all .2s; }
+    .serie-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .serie-thumb { height: 100px; display: flex; align-items: center; justify-content: center; font-size: 36px; }
+    .serie-body { padding: 16px; }
+    .serie-body h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; letter-spacing: -.02em; }
+    .serie-body p { font-size: 12px; color: var(--text-3); margin-bottom: 10px; line-height: 1.5; }
+    .serie-footer { display: flex; align-items: center; justify-content: space-between; }
+    .serie-ep { font-size: 11.5px; color: var(--text-3); }
+  </style>
+</head>
+<body>
+<div class="app" id="app">
+  <div id="topbar-mount"></div>
+  <div class="app-body">
+    <div id="sidebar-mount"></div>
+    <main class="main">
+      <div class="page-content fade-in">
+        <div style="font-size:26px;font-weight:700;letter-spacing:-.03em;margin-bottom:6px">Série Acadêmica</div>
+        <div style="font-size:14px;color:var(--text-3);margin-bottom:28px">Conteúdos complementares para aprofundar seu conhecimento</div>
+        <div class="serie-grid">
+          <div class="serie-card"><div class="serie-thumb" style="background:#F5F3EE">🎙</div><div class="serie-body"><h4>Líderes que Transformam</h4><p>Entrevistas com executivos que mudaram suas organizações através de liderança estratégica.</p><div class="serie-footer"><span class="serie-ep">12 episódios</span><span class="pill pill-green">Novo</span></div></div></div>
+          <div class="serie-card"><div class="serie-thumb" style="background:#EEF4FF">📰</div><div class="serie-body"><h4>MBA em Doses</h4><p>Conceitos do MBA explicados em formatos curtos e diretos ao ponto para o dia a dia.</p><div class="serie-footer"><span class="serie-ep">24 episódios</span><span class="pill pill-blue">Em andamento</span></div></div></div>
+          <div class="serie-card"><div class="serie-thumb" style="background:#EDFAF3">🔬</div><div class="serie-body"><h4>Inovação na Prática</h4><p>Cases reais de inovação e transformação digital em empresas brasileiras e globais.</p><div class="serie-footer"><span class="serie-ep">18 episódios</span><span class="pill pill-gray">Completo</span></div></div></div>
+          <div class="serie-card"><div class="serie-thumb" style="background:#FFF3EC">📈</div><div class="serie-body"><h4>Finanças Descomplicadas</h4><p>Indicadores financeiros, valuation e análise de investimentos de forma acessível.</p><div class="serie-footer"><span class="serie-ep">15 episódios</span><span class="pill pill-orange">Em breve</span></div></div></div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

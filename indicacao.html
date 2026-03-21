@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MBX — Aluno Indica Aluno</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .page-content { padding: 32px 28px; max-width: 720px; }
+    .referral-hero { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 40px; text-align: center; margin-bottom: 24px; }
+    .referral-emoji { font-size: 48px; margin-bottom: 16px; }
+    .referral-hero h2 { font-size: 22px; font-weight: 800; letter-spacing: -.04em; margin-bottom: 10px; }
+    .referral-hero p { font-size: 14px; color: var(--text-2); line-height: 1.7; max-width: 400px; margin: 0 auto 24px; }
+    .referral-code-box { display: flex; align-items: center; gap: 10px; background: var(--bg); border: 1.5px dashed var(--border); border-radius: 10px; padding: 14px 18px; max-width: 300px; margin: 0 auto; cursor: pointer; }
+    .referral-code { font-size: 18px; font-weight: 800; letter-spacing: .12em; flex: 1; text-align: center; }
+    .copy-btn { font-size: 12px; color: var(--text-3); white-space: nowrap; }
+    .referral-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 24px; }
+    .ref-stat { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px; text-align: center; }
+    .ref-stat .num { font-size: 28px; font-weight: 800; letter-spacing: -.04em; }
+    .ref-stat label { font-size: 12px; color: var(--text-3); display: block; margin-top: 4px; }
+    .referral-list { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+    .rl-head { padding: 16px 20px; border-bottom: 1px solid var(--border); font-size: 15px; font-weight: 700; }
+  </style>
+</head>
+<body>
+<div class="app" id="app">
+  <div id="topbar-mount"></div>
+  <div class="app-body">
+    <div id="sidebar-mount"></div>
+    <main class="main">
+      <div class="page-content fade-in">
+        <div style="font-size:26px;font-weight:700;letter-spacing:-.03em;margin-bottom:6px">Aluno Indica Aluno</div>
+        <div style="font-size:14px;color:var(--text-3);margin-bottom:28px">Ganhe descontos indicando amigos para a MBX</div>
+
+        <div class="referral-hero">
+          <div class="referral-emoji">🎁</div>
+          <h2>Indique e ganhe descontos!</h2>
+          <p>Para cada amigo que se matricular usando seu código, você ganha <strong>R$ 50</strong> de desconto na próxima mensalidade.</p>
+          <div class="referral-code-box" onclick="copyCode()">
+            <span class="referral-code">MBX-LUIZ21</span>
+            <span class="copy-btn" id="copyLabel">📋 Copiar</span>
+          </div>
+        </div>
+
+        <div class="referral-stats">
+          <div class="ref-stat"><div class="num">3</div><label>Indicações feitas</label></div>
+          <div class="ref-stat"><div class="num">2</div><label>Convertidas</label></div>
+          <div class="ref-stat"><div class="num">R$ 100</div><label>Descontos ganhos</label></div>
+        </div>
+
+        <div class="referral-list">
+          <div class="rl-head">Suas indicações</div>
+          <table class="tbl">
+            <thead><tr><th>Amigo</th><th>Data</th><th>Status</th><th>Desconto</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Mariana Costa</strong></td><td>15 Fev 2026</td><td><span class="pill pill-green">Matriculada</span></td><td>R$ 50,00</td></tr>
+              <tr><td><strong>Felipe Souza</strong></td><td>03 Mar 2026</td><td><span class="pill pill-green">Matriculado</span></td><td>R$ 50,00</td></tr>
+              <tr><td><strong>Camila Lima</strong></td><td>18 Mar 2026</td><td><span class="pill pill-orange">Pendente</span></td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+<script src="app.js"></script>
+<script>
+  function copyCode() {
+    navigator.clipboard?.writeText('MBX-LUIZ21');
+    const label = document.getElementById('copyLabel');
+    label.textContent = '✓ Copiado!';
+    setTimeout(() => label.textContent = '📋 Copiar', 2000);
+  }
+</script>
+</body>
+</html>

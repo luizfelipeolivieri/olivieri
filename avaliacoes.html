@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MBX — Avaliações</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .page-content { padding: 32px 28px; }
+    .page-h { font-size: 26px; font-weight: 700; letter-spacing: -.03em; margin-bottom: 6px; }
+    .page-sh { font-size: 14px; color: var(--text-3); margin-bottom: 28px; }
+    .section-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .sc-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--border); }
+    .sc-title { font-size: 15px; font-weight: 700; letter-spacing: -.02em; }
+    .empty-wrap { padding: 60px 24px; display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; }
+    .empty-wrap svg { width: 96px; height: 96px; }
+    .empty-wrap h3 { font-size: 15px; font-weight: 600; }
+    .empty-wrap p { font-size: 13px; color: var(--text-3); max-width: 260px; line-height: 1.6; }
+  </style>
+</head>
+<body>
+<div class="app" id="app">
+  <div id="topbar-mount"></div>
+  <div class="app-body">
+    <div id="sidebar-mount"></div>
+    <main class="main">
+      <div class="page-content fade-in">
+        <div class="page-h">Avaliações</div>
+        <div class="page-sh">Suas avaliações em aberto e concluídas</div>
+
+        <div class="section-card" style="margin-bottom:20px">
+          <div class="sc-head"><span class="sc-title">Avaliações em Aberto (0)</span></div>
+          <div class="empty-wrap">
+            <svg viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#c)">
+                <path d="M0.96 48C0.96 84.21 40.16 106.84 71.52 88.74C86.08 80.33 95.04 64.81 95.04 48C95.04 11.79 55.84-10.84 24.48 7.26C9.93 15.67 0.96 31.19 0.96 48Z" fill="#D6D6D6" fill-opacity="0.48"/>
+                <path d="M20.17 24.39H64.26V65.88H20.17L20.17 24.39Z" fill="white" stroke="#202939" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M27 19.2V28.93C27 30.42 29.6 31.4 30.18 30.68 30.82 30.33 31.21 29.65 31.19 28.93V19.2C31.23 17.71 28.87 16.73 27.31 17.45 27 17.8 26.98 18.47 27 19.2Z" fill="#D6D6D6" stroke="#202939" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M40 19.2V28.93C40.23 30.42 42.6 31.4 43.15 30.68 43.79 30.33 44.18 29.65 44.16 28.93V19.2C44.2 17.71 41.83 16.73 40.27 17.45 39.96 17.8 39.98 18.47 40 19.2Z" fill="#D6D6D6" stroke="#202939" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M53 19.2V28.93C53.16 30.42 55.56 31.4 56.11 30.68 56.75 30.33 57.14 29.65 57.12 28.93V19.2C57.2 17.71 54.8 16.73 53.24 17.45 52.92 17.8 52.98 18.47 53 19.2Z" fill="#D6D6D6" stroke="#202939" stroke-linecap="round" stroke-linejoin="round"/>
+                <ellipse cx="69.78" cy="64.71" rx="16.86" ry="16.86" fill="#D6D6D6" stroke="#202939" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M66.37 73.03C65.71 73.03 65.09 72.77 64.63 72.31L59.72 67.4C58.41 66.04 59.06 63.77 60.9 63.32C61.72 63.11 62.58 63.35 63.19 63.93L66.37 67.11L76.36 57.11C77.76 55.84 80.01 56.55 80.42 58.4C80.59 59.18 80.37 59.99 79.83 60.58L68.1 72.31C67.64 72.77 67.02 73.03 66.37 73.03Z" fill="white" stroke="#202939" stroke-linejoin="round"/>
+              </g>
+              <defs><clipPath id="c"><rect width="96" height="96" fill="white"/></clipPath></defs>
+            </svg>
+            <h3>Suas avaliações estão em dia</h3>
+            <p>Todas as suas avaliações estão feitas e não há pendências</p>
+          </div>
+        </div>
+
+        <div class="section-card">
+          <div class="sc-head">
+            <span class="sc-title">Avaliações Concluídas</span>
+            <span class="pill pill-green">3 realizadas</span>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="tbl">
+              <thead><tr><th>Avaliação</th><th>Curso</th><th>Data</th><th>Nota</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Prova Final — Módulo 3</strong></td><td>MBA Gestão</td><td>10 Mar 2026</td><td><strong>8.5</strong></td><td><span class="pill pill-green">Aprovado</span></td></tr>
+                <tr><td><strong>Trabalho Prático — SWOT</strong></td><td>MBA Gestão</td><td>25 Fev 2026</td><td><strong>9.2</strong></td><td><span class="pill pill-green">Aprovado</span></td></tr>
+                <tr><td><strong>Quiz — Fundamentos</strong></td><td>MBA Gestão</td><td>12 Fev 2026</td><td><strong>7.8</strong></td><td><span class="pill pill-green">Aprovado</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MBX — Meus Cursos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .page-content { padding: 32px 28px; }
+    .course-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 18px; }
+    .course-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; transition: all .2s; cursor: pointer; }
+    .course-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .course-thumb { height: 120px; display: flex; align-items: center; justify-content: center; font-size: 40px; }
+    .course-body { padding: 18px; }
+    .course-body h4 { font-size: 15px; font-weight: 700; letter-spacing: -.03em; margin-bottom: 4px; }
+    .course-body p { font-size: 12.5px; color: var(--text-3); margin-bottom: 14px; }
+    .prog-bar { height: 5px; background: var(--bg); border-radius: 100px; overflow: hidden; margin-bottom: 6px; }
+    .prog-fill { height: 100%; background: var(--text); border-radius: 100px; }
+    .prog-meta { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-3); }
+    .course-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border-light); }
+    .course-footer span { font-size: 12px; color: var(--text-3); }
+  </style>
+</head>
+<body>
+<div class="app" id="app">
+  <div id="topbar-mount"></div>
+  <div class="app-body">
+    <div id="sidebar-mount"></div>
+    <main class="main">
+      <div class="page-content fade-in">
+        <div style="font-size:26px;font-weight:700;letter-spacing:-.03em;margin-bottom:6px">Meus Cursos</div>
+        <div style="font-size:14px;color:var(--text-3);margin-bottom:28px">Acompanhe o progresso dos seus cursos</div>
+        <div class="course-grid">
+          <div class="course-card">
+            <div class="course-thumb" style="background:#F5F3EE">🎓</div>
+            <div class="course-body">
+              <h4>MBA Gestão Empresarial</h4>
+              <p>Prof. Rafael Pinto · 18 meses · 340h</p>
+              <div class="prog-bar"><div class="prog-fill" style="width:64%"></div></div>
+              <div class="prog-meta"><span>Módulo 4 de 8</span><span>64%</span></div>
+              <div class="course-footer"><span>🗓 Prazo: Dez 2026</span><span class="pill pill-green">Em andamento</span></div>
+            </div>
+          </div>
+          <div class="course-card">
+            <div class="course-thumb" style="background:#EEF4FF">💼</div>
+            <div class="course-body">
+              <h4>Workshop: Liderança Ágil</h4>
+              <p>Prof. Ana Martins · 2 meses · 40h</p>
+              <div class="prog-bar"><div class="prog-fill" style="width:100%"></div></div>
+              <div class="prog-meta"><span>Concluído</span><span>100%</span></div>
+              <div class="course-footer"><span>🏆 Certificado emitido</span><span class="pill pill-blue">Concluído</span></div>
+            </div>
+          </div>
+          <div class="course-card">
+            <div class="course-thumb" style="background:#EDFAF3">📊</div>
+            <div class="course-body">
+              <h4>Finanças para Executivos</h4>
+              <p>Prof. João Silva · 3 meses · 60h</p>
+              <div class="prog-bar"><div class="prog-fill" style="width:28%"></div></div>
+              <div class="prog-meta"><span>Módulo 1 de 6</span><span>28%</span></div>
+              <div class="course-footer"><span>🗓 Prazo: Jun 2026</span><span class="pill pill-orange">Iniciando</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
