@@ -1,5 +1,35 @@
-# email-generator
+# Projeto Base - Sistema Administrativo
 
-A function that receives a person's name and surname and returns his name and lastname concatenating with the string @email.com in the main algorithm.
+Projeto base em Next.js com:
 
-A message must be presented to the user containing his full name and email.
+- Next.js App Router
+- TypeScript
+- Tailwind CSS
+- Supabase
+- Layout administrativo
+- Dashboard
+- Data
+- Financeiro
+- Usuários
+- Aula
+- Perfil
+
+## Rodando localmente
+
+```bash
+npm install
+npm run dev
+```
+
+## Variáveis de ambiente
+
+Crie o arquivo `.env.local`:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+```
+
+## Deploy
+
+Pode ser publicado no Vercel com deploy automático via GitHub.
