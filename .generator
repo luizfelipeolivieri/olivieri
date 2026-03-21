@@ -1,7 +1,0 @@
-def email_generator(firstname:str, lastname:str):
-  if len(firstname) > 0 and len (lastname) > 0:
-    return firstname.lower() + lastname.lower() + "@email.com"
-  else:
-    return None
-  
-print(email_generator('Luiz', 'Olivieri'))
