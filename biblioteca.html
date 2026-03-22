@@ -3,49 +3,36 @@
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MBX — Biblioteca Digital</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="dashboard.css">
   <style>
-    .sb-wrap{display:flex;gap:12px;margin-bottom:22px}
-    .s-inp{flex:1;display:flex;align-items:center;gap:10px;background:var(--surface);border:1.5px solid var(--border);border-radius:10px;padding:10px 16px;font-size:14px;color:var(--text-3);transition:border-color .15s}
-    .s-inp:focus-within{border-color:var(--text)}
-    .s-inp input{border:none;outline:none;background:none;font-family:var(--font);font-size:14px;color:var(--text);flex:1}
-    .bg{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:15px}
+    .sw{display:flex;gap:12px;margin-bottom:22px}
+    .si{flex:1;display:flex;align-items:center;gap:10px;background:var(--surface);border:1.5px solid var(--border);border-radius:10px;padding:10px 15px;font-size:14px;color:var(--text-3);transition:border-color .15s}
+    .si:focus-within{border-color:var(--text)}
+    .si input{border:none;outline:none;background:none;font-family:var(--font);font-size:14px;color:var(--text);flex:1}
+    .bg{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:14px}
     .bc{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;transition:all .2s}
     .bc:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
-    .bct{height:130px;display:flex;align-items:center;justify-content:center;font-size:38px}
-    .bcb{padding:12px 14px}
-    .bcb h5{font-size:13px;font-weight:700;margin-bottom:3px;letter-spacing:-.02em;line-height:1.4}
+    .bct{height:126px;display:flex;align-items:center;justify-content:center;font-size:36px}
+    .bcb{padding:11px 13px}
+    .bcb h5{font-size:13px;font-weight:700;margin-bottom:2px;letter-spacing:-.02em;line-height:1.4}
     .bcb p{font-size:11px;color:var(--text-3)}
-    .bfoot{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+    .bf{display:flex;align-items:center;justify-content:space-between;margin-top:7px}
     .bsz{font-size:10.5px;color:var(--text-3)}
   </style>
 </head>
 <body>
-<div class="app" id="app">
-  <div id="topbar-mount"></div>
-  <div class="app-body">
-    <div id="sidebar-mount"></div>
-    <main class="main">
-      <div class="page-pad fade-in">
-        <div class="page-h">Biblioteca Digital</div>
-        <div class="page-sh">Acervo completo de e-books, artigos e materiais</div>
-        <div class="sb-wrap">
-          <div class="s-inp">🔍 <input type="text" placeholder="Buscar por título, autor ou tema..."></div>
-          <button class="btn btn-outline btn-sm">Filtrar ▾</button>
-        </div>
-        <div style="font-size:13px;color:var(--text-3);margin-bottom:16px">Mostrando 6 de 247 materiais</div>
-        <div class="bg">
-          <div class="bc"><div class="bct" style="background:#F5F3EE">📘</div><div class="bcb"><h5>Fundamentos de Estratégia</h5><p>Porter, M.</p><div class="bfoot"><span class="bsz">8.4 MB</span><span>↓</span></div></div></div>
-          <div class="bc"><div class="bct" style="background:#EEF4FF">📗</div><div class="bcb"><h5>Gestão de Pessoas na Era Digital</h5><p>Chiavenato, I.</p><div class="bfoot"><span class="bsz">5.1 MB</span><span>↓</span></div></div></div>
-          <div class="bc"><div class="bct" style="background:#EDFAF3">📙</div><div class="bcb"><h5>Finanças Corporativas</h5><p>Damodaran, A.</p><div class="bfoot"><span class="bsz">12.3 MB</span><span>↓</span></div></div></div>
-          <div class="bc"><div class="bct" style="background:#FFF3EC">📒</div><div class="bcb"><h5>Marketing Digital Avançado</h5><p>Kotler, P.</p><div class="bfoot"><span class="bsz">4.8 MB</span><span>↓</span></div></div></div>
-          <div class="bc"><div class="bct" style="background:#F5EEFF">📓</div><div class="bcb"><h5>Inovação Disruptiva</h5><p>Christensen, C.</p><div class="bfoot"><span class="bsz">6.2 MB</span><span>↓</span></div></div></div>
-          <div class="bc"><div class="bct" style="background:#FFFBF0">📔</div><div class="bcb"><h5>Liderança Situacional</h5><p>Hersey &amp; Blanchard</p><div class="bfoot"><span class="bsz">3.5 MB</span><span>↓</span></div></div></div>
-        </div>
-      </div>
-    </main>
+<div class="app" id="app"><div id="topbar-mount"></div><div class="app-body"><div id="sidebar-mount"></div>
+<main class="main"><div class="page-pad fade-in">
+  <div class="page-h">Biblioteca Digital</div><div class="page-sh">Acervo completo de e-books, artigos e materiais</div>
+  <div class="sw"><div class="si">🔍 <input type="text" placeholder="Buscar por título, autor ou tema..."></div><button class="btn btn-outline btn-sm">Filtrar ▾</button></div>
+  <div style="font-size:13px;color:var(--text-3);margin-bottom:15px">Mostrando 6 de 247 materiais</div>
+  <div class="bg">
+    <div class="bc"><div class="bct" style="background:#F5F3EE">📘</div><div class="bcb"><h5>Fundamentos de Estratégia</h5><p>Porter, M.</p><div class="bf"><span class="bsz">8.4 MB</span><span>↓</span></div></div></div>
+    <div class="bc"><div class="bct" style="background:#EEF4FF">📗</div><div class="bcb"><h5>Gestão de Pessoas na Era Digital</h5><p>Chiavenato, I.</p><div class="bf"><span class="bsz">5.1 MB</span><span>↓</span></div></div></div>
+    <div class="bc"><div class="bct" style="background:#EDFAF3">📙</div><div class="bcb"><h5>Finanças Corporativas</h5><p>Damodaran, A.</p><div class="bf"><span class="bsz">12.3 MB</span><span>↓</span></div></div></div>
+    <div class="bc"><div class="bct" style="background:#FFF3EC">📒</div><div class="bcb"><h5>Marketing Digital Avançado</h5><p>Kotler, P.</p><div class="bf"><span class="bsz">4.8 MB</span><span>↓</span></div></div></div>
+    <div class="bc"><div class="bct" style="background:#F5EEFF">📓</div><div class="bcb"><h5>Inovação Disruptiva</h5><p>Christensen, C.</p><div class="bf"><span class="bsz">6.2 MB</span><span>↓</span></div></div></div>
+    <div class="bc"><div class="bct" style="background:#FFFBF0">📔</div><div class="bcb"><h5>Liderança Situacional</h5><p>Hersey &amp; Blanchard</p><div class="bf"><span class="bsz">3.5 MB</span><span>↓</span></div></div></div>
   </div>
-</div>
-<script src="app.js"></script>
-</body>
-</html>
+</div></main></div></div>
+<script src="dashboard.js"></script></body></html>

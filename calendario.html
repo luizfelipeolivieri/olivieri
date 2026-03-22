@@ -3,27 +3,7 @@
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MBX — Calendário</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    .cal-wrap{padding:32px 28px}
-    .cal-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:16px}
-    .cal-nav{display:flex;align-items:center;gap:8px}
-    .cal-nav-btn{width:32px;height:32px;border:1px solid var(--border);border-radius:8px;background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-2);font-size:16px;transition:background .15s}
-    .cal-nav-btn:hover{background:var(--bg)}
-    .cal-month{font-size:16px;font-weight:700;letter-spacing:-.03em;min-width:150px;text-align:center}
-    .cal-grid{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
-    .cal-dh{display:grid;grid-template-columns:repeat(7,1fr);background:var(--bg)}
-    .cal-dn{padding:12px 0;text-align:center;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3)}
-    .cal-days{display:grid;grid-template-columns:repeat(7,1fr)}
-    .cal-day{min-height:96px;padding:10px;border-right:1px solid #F5F5F5;border-bottom:1px solid #F5F5F5;cursor:pointer;transition:background .15s}
-    .cal-day:hover{background:#FAFAFA}
-    .cal-day.today{background:#FFFDF5}
-    .cal-day.other{opacity:.3}
-    .day-num{font-size:13px;font-weight:600;width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:50%}
-    .cal-day.today .day-num{background:var(--text);color:#fff}
-    .cal-ev{font-size:11px;padding:2px 6px;border-radius:4px;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .ev-b{background:#EEF4FF;color:#2563EB}.ev-g{background:#EDFAF3;color:#1A7A4A}.ev-o{background:#FFF3EC;color:#C8530A}
-  </style>
+  <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
 <div class="app" id="app">
@@ -31,52 +11,61 @@
   <div class="app-body">
     <div id="sidebar-mount"></div>
     <main class="main">
-      <div class="cal-wrap fade-in">
+      <div class="page-pad fade-in">
+
+        <div class="page-h">Calendário</div>
+        <div class="page-sh">Compromissos e eventos acadêmicos</div>
+        <style>
+          .cal-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+          .cal-nav{display:flex;align-items:center;gap:8px}
+          .cnb{width:32px;height:32px;border:1px solid var(--border);border-radius:8px;background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:background .15s}
+          .cnb:hover{background:var(--bg)}
+          .cal-month{font-size:16px;font-weight:700;letter-spacing:-.03em;min-width:148px;text-align:center}
+          .cal-grid{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+          .cal-dh{display:grid;grid-template-columns:repeat(7,1fr);background:var(--bg)}
+          .cdn{padding:11px 0;text-align:center;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3)}
+          .cal-days{display:grid;grid-template-columns:repeat(7,1fr)}
+          .cd{min-height:88px;padding:9px;border-right:1px solid #F5F5F5;border-bottom:1px solid #F5F5F5;cursor:pointer;transition:background .15s}
+          .cd:hover{background:#FAFAFA}.cd.today{background:#FFFDF5}.cd.other{opacity:.3}
+          .dn{font-size:13px;font-weight:600;width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:50%}
+          .cd.today .dn{background:var(--text);color:#fff}
+          .cev{font-size:11px;padding:2px 6px;border-radius:4px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+          .ev-b{background:#EEF4FF;color:#2563EB}.ev-g{background:#EDFAF3;color:#1A7A4A}.ev-o{background:#FFF3EC;color:#C8530A}
+        </style>
         <div class="cal-top">
-          <div>
-            <div class="page-h">Calendário</div>
-            <div style="font-size:14px;color:var(--text-3);margin-top:4px">Compromissos e eventos acadêmicos</div>
-          </div>
+          <div></div>
           <div class="cal-nav">
-            <button class="cal-nav-btn" onclick="chMonth(-1)">‹</button>
-            <span class="cal-month" id="calMonth"></span>
-            <button class="cal-nav-btn" onclick="chMonth(1)">›</button>
+            <button class="cnb" onclick="chM(-1)">‹</button>
+            <span class="cal-month" id="cM"></span>
+            <button class="cnb" onclick="chM(1)">›</button>
           </div>
         </div>
         <div class="cal-grid">
-          <div class="cal-dh">
-            <div class="cal-dn">Dom</div><div class="cal-dn">Seg</div><div class="cal-dn">Ter</div>
-            <div class="cal-dn">Qua</div><div class="cal-dn">Qui</div><div class="cal-dn">Sex</div><div class="cal-dn">Sáb</div>
-          </div>
-          <div class="cal-days" id="calDays"></div>
+          <div class="cal-dh"><div class="cdn">Dom</div><div class="cdn">Seg</div><div class="cdn">Ter</div><div class="cdn">Qua</div><div class="cdn">Qui</div><div class="cdn">Sex</div><div class="cdn">Sáb</div></div>
+          <div class="cal-days" id="cD"></div>
         </div>
+        <script>
+          let cur=new Date(2026,2,1);
+          const EVS={"2026-3-10":[{l:"Aula: Estratégia",c:"ev-b"}],"2026-3-15":[{l:"Prova Finanças",c:"ev-o"}],"2026-3-21":[{l:"Hoje",c:"ev-g"}],"2026-3-25":[{l:"TCC: Entrega",c:"ev-o"}],"2026-3-28":[{l:"Aula: Marketing",c:"ev-b"}]};
+          const MN=["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+          const today=new Date(2026,2,21);
+          function render(){
+            const y=cur.getFullYear(),m=cur.getMonth();
+            document.getElementById("cM").textContent=MN[m]+" "+y;
+            const f=new Date(y,m,1).getDay(),d=new Date(y,m+1,0).getDate(),p=new Date(y,m,0).getDate();
+            let h="";
+            for(let i=f-1;i>=0;i--)h+=`<div class="cd other"><div class="dn">${p-i}</div></div>`;
+            for(let n=1;n<=d;n++){const k=`${y}-${m+1}-${n}`,iT=y===today.getFullYear()&&m===today.getMonth()&&n===today.getDate();h+=`<div class="cd${iT?" today":""}"><div class="dn">${n}</div>${(EVS[k]||[]).map(e=>`<div class="cev ${e.c}">${e.l}</div>`).join("")}</div>`;}
+            const r=42-(f+d);for(let n=1;n<=r;n++)h+=`<div class="cd other"><div class="dn">${n}</div></div>`;
+            document.getElementById("cD").innerHTML=h;
+          }
+          function chM(d){cur.setMonth(cur.getMonth()+d);render();}
+          document.addEventListener("DOMContentLoaded",render);
+        </script>
       </div>
     </main>
   </div>
 </div>
-<script src="app.js"></script>
-<script>
-  let cur = new Date(2026,2,1);
-  const EVS = {'2026-3-10':[{l:'Aula: Estratégia',c:'ev-b'}],'2026-3-15':[{l:'Prova Finanças',c:'ev-o'}],'2026-3-21':[{l:'Hoje',c:'ev-g'}],'2026-3-25':[{l:'TCC: Entrega',c:'ev-o'}],'2026-3-28':[{l:'Aula: Marketing',c:'ev-b'}]};
-  const MONTHS=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
-  function render(){
-    const y=cur.getFullYear(),m=cur.getMonth();
-    document.getElementById('calMonth').textContent=MONTHS[m]+' '+y;
-    const first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate(),prev=new Date(y,m,0).getDate();
-    const today=new Date(2026,2,21);
-    let h='';
-    for(let i=first-1;i>=0;i--) h+=`<div class="cal-day other"><div class="day-num">${prev-i}</div></div>`;
-    for(let d=1;d<=days;d++){
-      const k=`${y}-${m+1}-${d}`,isT=y===today.getFullYear()&&m===today.getMonth()&&d===today.getDate();
-      const evs=(EVS[k]||[]).map(e=>`<div class="cal-ev ${e.c}">${e.l}</div>`).join('');
-      h+=`<div class="cal-day${isT?' today':''}"><div class="day-num">${d}</div>${evs}</div>`;
-    }
-    const rem=42-(first+days);
-    for(let d=1;d<=rem;d++) h+=`<div class="cal-day other"><div class="day-num">${d}</div></div>`;
-    document.getElementById('calDays').innerHTML=h;
-  }
-  function chMonth(d){cur.setMonth(cur.getMonth()+d);render();}
-  document.addEventListener('DOMContentLoaded',render);
-</script>
+<script src="dashboard.js"></script>
 </body>
 </html>

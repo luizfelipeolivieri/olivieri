@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MBX — Financeiro</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="dashboard.css">
   <style>
-    .kr{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:22px}
+    .kr{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-bottom:22px}
     @media(max-width:700px){.kr{grid-template-columns:1fr}}
-    .kc{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px}
+    .kc{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:19px}
     .kc label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3)}
-    .kc .amt{font-size:26px;font-weight:800;letter-spacing:-.04em;margin:6px 0 4px}
+    .kc .amt{font-size:26px;font-weight:800;letter-spacing:-.04em;margin:5px 0 4px}
     .kc .chg{font-size:12px}
     .pos{color:#1A7A4A}.neg{color:#C8530A}
     .tc{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden}
@@ -17,41 +17,26 @@
   </style>
 </head>
 <body>
-<div class="app" id="app">
-  <div id="topbar-mount"></div>
-  <div class="app-body">
-    <div id="sidebar-mount"></div>
-    <main class="main">
-      <div class="page-pad fade-in">
-        <div class="page-h">Financeiro</div>
-        <div class="page-sh">Histórico de pagamentos e situação financeira</div>
-        <div class="tabs"><button class="tab-btn on" onclick="setT(this)">Mensal</button><button class="tab-btn" onclick="setT(this)">Trimestral</button><button class="tab-btn" onclick="setT(this)">Anual</button></div>
-        <div class="kr">
-          <div class="kc"><label>Total Pago</label><div class="amt">R$ 5.373</div><div class="chg pos">↑ Em dia</div></div>
-          <div class="kc"><label>Próx. Vencimento</label><div class="amt">R$ 597</div><div class="chg" style="color:var(--text-3)">📅 01 Abr 2026</div></div>
-          <div class="kc"><label>Mensalidade Atual</label><div class="amt">R$ 597</div><div class="chg pos">✓ Pago</div></div>
-        </div>
-        <div class="tc">
-          <div class="tc-h">Histórico de Pagamentos <span class="pill pill-green">Em dia</span></div>
-          <div style="overflow-x:auto">
-            <table class="tbl">
-              <thead><tr><th>Descrição</th><th>Vencimento</th><th>Pagamento</th><th>Valor</th><th>Status</th></tr></thead>
-              <tbody>
-                <tr><td>MBA Gestão — Mar/2026</td><td>01/03/2026</td><td>28/02/2026</td><td><strong>R$ 597,00</strong></td><td><span class="pill pill-green">Pago</span></td></tr>
-                <tr><td>MBA Gestão — Fev/2026</td><td>01/02/2026</td><td>29/01/2026</td><td><strong>R$ 597,00</strong></td><td><span class="pill pill-green">Pago</span></td></tr>
-                <tr><td>MBA Gestão — Jan/2026</td><td>01/01/2026</td><td>30/12/2025</td><td><strong>R$ 597,00</strong></td><td><span class="pill pill-green">Pago</span></td></tr>
-                <tr><td>MBA Gestão — Dez/2025</td><td>01/12/2025</td><td>28/11/2025</td><td><strong>R$ 597,00</strong></td><td><span class="pill pill-green">Pago</span></td></tr>
-                <tr><td>MBA Gestão — Nov/2025</td><td>01/11/2025</td><td>31/10/2025</td><td><strong>R$ 597,00</strong></td><td><span class="pill pill-green">Pago</span></td></tr>
-                <tr><td>MBA Gestão — Out/2025</td><td>01/10/2025</td><td>30/09/2025</td><td><strong>R$ 597,00</strong></td><td><span class="pill pill-green">Pago</span></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </main>
+<div class="app" id="app"><div id="topbar-mount"></div><div class="app-body"><div id="sidebar-mount"></div>
+<main class="main"><div class="page-pad fade-in">
+  <div class="page-h">Financeiro</div><div class="page-sh">Histórico de pagamentos e situação financeira</div>
+  <div class="tabs"><button class="tab-btn on" onclick="sT(this)">Mensal</button><button class="tab-btn" onclick="sT(this)">Trimestral</button><button class="tab-btn" onclick="sT(this)">Anual</button></div>
+  <div class="kr">
+    <div class="kc"><label>Total Pago</label><div class="amt">R$ 5.373</div><div class="chg pos">↑ Em dia</div></div>
+    <div class="kc"><label>Próx. Vencimento</label><div class="amt">R$ 597</div><div class="chg" style="color:var(--text-3)">📅 01 Abr 2026</div></div>
+    <div class="kc"><label>Mensalidade Atual</label><div class="amt">R$ 597</div><div class="chg pos">✓ Pago</div></div>
   </div>
-</div>
-<script src="app.js"></script>
-<script>function setT(b){document.querySelectorAll('.tab-btn').forEach(t=>t.classList.remove('on'));b.classList.add('on')}</script>
-</body>
-</html>
+  <div class="tc"><div class="tc-h">Histórico de Pagamentos <span class="pill pill-green">Em dia</span></div>
+    <div style="overflow-x:auto"><table class="tbl"><thead><tr><th>Descrição</th><th>Vencimento</th><th>Pagamento</th><th>Valor</th><th>Status</th></tr></thead><tbody>
+      <tr><td>MBA Gestão — Mar/2026</td><td>01/03/2026</td><td>28/02/2026</td><td><strong>R$ 597,00</strong></td><td><span class="pill pill-green">Pago</span></td></tr>
+      <tr><td>MBA Gestão — Fev/2026</td><td>01/02/2026</td><td>29/01/2026</td><td><strong>R$ 597,00</strong></td><td><span class="pill pill-green">Pago</span></td></tr>
+      <tr><td>MBA Gestão — Jan/2026</td><td>01/01/2026</td><td>30/12/2025</td><td><strong>R$ 597,00</strong></td><td><span class="pill pill-green">Pago</span></td></tr>
+      <tr><td>MBA Gestão — Dez/2025</td><td>01/12/2025</td><td>28/11/2025</td><td><strong>R$ 597,00</strong></td><td><span class="pill pill-green">Pago</span></td></tr>
+      <tr><td>MBA Gestão — Nov/2025</td><td>01/11/2025</td><td>31/10/2025</td><td><strong>R$ 597,00</strong></td><td><span class="pill pill-green">Pago</span></td></tr>
+      <tr><td>MBA Gestão — Out/2025</td><td>01/10/2025</td><td>30/09/2025</td><td><strong>R$ 597,00</strong></td><td><span class="pill pill-green">Pago</span></td></tr>
+    </tbody></table></div>
+  </div>
+</div></main></div></div>
+<script src="dashboard.js"></script>
+<script>function sT(b){document.querySelectorAll(".tab-btn").forEach(t=>t.classList.remove("on"));b.classList.add("on")}</script>
+</body></html>

@@ -3,38 +3,28 @@
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MBX — Meus Cursos</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="dashboard.css">
   <style>
-    .cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:18px}
+    .cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:17px}
     .cc{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:all .2s}
     .cc:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
-    .ct{height:116px;display:flex;align-items:center;justify-content:center;font-size:38px}
-    .cb{padding:18px}
+    .ct{height:112px;display:flex;align-items:center;justify-content:center;font-size:36px}
+    .cb{padding:17px}
     .cb h4{font-size:15px;font-weight:700;letter-spacing:-.03em;margin-bottom:4px}
-    .cb p{font-size:12.5px;color:var(--text-3);margin-bottom:14px}
+    .cb p{font-size:12.5px;color:var(--text-3);margin-bottom:13px}
     .pm{display:flex;justify-content:space-between;font-size:11px;color:var(--text-3);margin-top:5px}
-    .cf{display:flex;align-items:center;justify-content:space-between;margin-top:14px;padding-top:12px;border-top:1px solid var(--border-lt)}
+    .cf{display:flex;align-items:center;justify-content:space-between;margin-top:13px;padding-top:11px;border-top:1px solid var(--border-lt)}
     .cf span{font-size:12px;color:var(--text-3)}
   </style>
 </head>
 <body>
-<div class="app" id="app">
-  <div id="topbar-mount"></div>
-  <div class="app-body">
-    <div id="sidebar-mount"></div>
-    <main class="main">
-      <div class="page-pad fade-in">
-        <div class="page-h">Meus Cursos</div>
-        <div class="page-sh">Acompanhe o progresso dos seus cursos</div>
-        <div class="cg">
-          <div class="cc"><div class="ct" style="background:#F5F3EE">🎓</div><div class="cb"><h4>MBA Gestão Empresarial</h4><p>Prof. Rafael Pinto · 18 meses · 340h</p><div class="prog-bar"><div class="prog-fill" style="width:64%"></div></div><div class="pm"><span>Módulo 4 de 8</span><span>64%</span></div><div class="cf"><span>🗓 Prazo: Dez 2026</span><span class="pill pill-green">Em andamento</span></div></div></div>
-          <div class="cc"><div class="ct" style="background:#EEF4FF">💼</div><div class="cb"><h4>Workshop: Liderança Ágil</h4><p>Prof. Ana Martins · 2 meses · 40h</p><div class="prog-bar"><div class="prog-fill" style="width:100%"></div></div><div class="pm"><span>Concluído</span><span>100%</span></div><div class="cf"><span>🏆 Certificado emitido</span><span class="pill pill-blue">Concluído</span></div></div></div>
-          <div class="cc"><div class="ct" style="background:#EDFAF3">📊</div><div class="cb"><h4>Finanças para Executivos</h4><p>Prof. João Silva · 3 meses · 60h</p><div class="prog-bar"><div class="prog-fill" style="width:28%"></div></div><div class="pm"><span>Módulo 1 de 6</span><span>28%</span></div><div class="cf"><span>🗓 Prazo: Jun 2026</span><span class="pill pill-orange">Iniciando</span></div></div></div>
-        </div>
-      </div>
-    </main>
+<div class="app" id="app"><div id="topbar-mount"></div><div class="app-body"><div id="sidebar-mount"></div>
+<main class="main"><div class="page-pad fade-in">
+  <div class="page-h">Meus Cursos</div><div class="page-sh">Acompanhe o progresso dos seus cursos</div>
+  <div class="cg">
+    <div class="cc"><div class="ct" style="background:#F5F3EE">🎓</div><div class="cb"><h4>MBA Gestão Empresarial</h4><p>Prof. Rafael Pinto · 18 meses · 340h</p><div class="prog-bar"><div class="prog-fill" style="width:64%"></div></div><div class="pm"><span>Módulo 4 de 8</span><span>64%</span></div><div class="cf"><span>🗓 Prazo: Dez 2026</span><span class="pill pill-green">Em andamento</span></div></div></div>
+    <div class="cc"><div class="ct" style="background:#EEF4FF">💼</div><div class="cb"><h4>Workshop: Liderança Ágil</h4><p>Prof. Ana Martins · 2 meses · 40h</p><div class="prog-bar"><div class="prog-fill" style="width:100%"></div></div><div class="pm"><span>Concluído</span><span>100%</span></div><div class="cf"><span>🏆 Certificado emitido</span><span class="pill pill-blue">Concluído</span></div></div></div>
+    <div class="cc"><div class="ct" style="background:#EDFAF3">📊</div><div class="cb"><h4>Finanças para Executivos</h4><p>Prof. João Silva · 3 meses · 60h</p><div class="prog-bar"><div class="prog-fill" style="width:28%"></div></div><div class="pm"><span>Módulo 1 de 6</span><span>28%</span></div><div class="cf"><span>🗓 Prazo: Jun 2026</span><span class="pill pill-orange">Iniciando</span></div></div></div>
   </div>
-</div>
-<script src="app.js"></script>
-</body>
-</html>
+</div></main></div></div>
+<script src="dashboard.js"></script></body></html>

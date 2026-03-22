@@ -8,169 +8,150 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #F5F4F1;
-      --surface: #FFFFFF;
-      --border: #E5E3DD;
-      --text: #1A1A1A;
-      --text-2: #666;
-      --text-3: #999;
-      --font: 'Inter', system-ui, sans-serif;
-      --radius: 14px;
-      --shadow: 0 4px 24px rgba(0,0,0,.08);
-      --shadow-lg: 0 12px 48px rgba(0,0,0,.14);
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#F5F4F1;--surface:#fff;--border:#E5E3DD;
+      --text:#1A1A1A;--text-2:#666;--text-3:#999;
+      --font:'Inter',system-ui,sans-serif;
+      --shadow:0 4px 24px rgba(0,0,0,.08);--shadow-lg:0 12px 48px rgba(0,0,0,.14);
     }
-    html { scroll-behavior: smooth; }
-    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; }
+    html{scroll-behavior:smooth}
+    body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6}
 
-    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 22px; border-radius: 8px; font-size: 13.5px; font-weight: 600; cursor: pointer; border: none; transition: all .18s; text-decoration: none; font-family: var(--font); }
-    .btn-dark { background: var(--text); color: #fff; }
-    .btn-dark:hover { background: #333; }
-    .btn-outline { background: transparent; color: var(--text); border: 1.5px solid #D0CEC8; }
-    .btn-outline:hover { border-color: var(--text); }
-    .btn-sm { padding: 8px 18px; font-size: 13px; }
-    .btn-white { background: #fff; color: var(--text); }
-    .btn-white:hover { background: #F0F0F0; }
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:8px;font-size:13.5px;font-weight:600;cursor:pointer;border:none;transition:all .18s;text-decoration:none;font-family:var(--font)}
+    .btn-dark{background:var(--text);color:#fff}.btn-dark:hover{background:#333}
+    .btn-outline{background:transparent;color:var(--text);border:1.5px solid #D0CEC8}.btn-outline:hover{border-color:var(--text)}
+    .btn-sm{padding:8px 18px;font-size:13px}
+    .btn-white{background:#fff;color:var(--text)}.btn-white:hover{background:#F0F0F0}
 
     /* NAV */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 48px; background: rgba(245,244,241,.92); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); transition: box-shadow .3s; }
-    .nav-logo { display: flex; align-items: center; text-decoration: none; }
-    .nav-logo svg { width: 72px; height: auto; }
-    .nav-links { display: flex; gap: 32px; list-style: none; }
-    .nav-links a { text-decoration: none; color: var(--text-2); font-size: 14px; font-weight: 500; transition: color .15s; }
-    .nav-links a:hover { color: var(--text); }
-    .nav-cta { display: flex; gap: 10px; }
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:rgba(245,244,241,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);transition:box-shadow .3s}
+    .nav-logo{display:flex;align-items:center;text-decoration:none}
+    .nav-logo svg{width:72px;height:auto}
+    .nav-links{display:flex;gap:32px;list-style:none}
+    .nav-links a{text-decoration:none;color:var(--text-2);font-size:14px;font-weight:500;transition:color .15s}
+    .nav-links a:hover{color:var(--text)}
+    .nav-cta{display:flex;gap:10px}
 
     /* HERO */
-    .hero { min-height: 100vh; display: flex; align-items: center; padding: 100px 48px 80px; position: relative; overflow: hidden; }
-    .hero-bg-grid { position: absolute; inset: 0; z-index: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 48px 48px; opacity: .5; mask-image: radial-gradient(ellipse 100% 100% at 50% 0%, black 40%, transparent 80%); -webkit-mask-image: radial-gradient(ellipse 100% 100% at 50% 0%, black 40%, transparent 80%); }
-    .hero-content { position: relative; z-index: 1; max-width: 640px; }
-    .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--text-2); margin-bottom: 24px; padding: 6px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 100px; }
-    .hero-eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: #22C55E; animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
-    .hero h1 { font-size: clamp(44px, 6vw, 78px); font-weight: 800; letter-spacing: -.04em; line-height: 1.04; margin-bottom: 24px; }
-    .hero p { font-size: 18px; color: var(--text-2); margin-bottom: 40px; max-width: 460px; line-height: 1.7; }
-    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
-    .hero-stats { display: flex; gap: 48px; margin-top: 72px; padding-top: 40px; border-top: 1px solid var(--border); }
-    .stat-num { font-size: 30px; font-weight: 800; letter-spacing: -.04em; }
-    .stat-label { font-size: 12px; color: var(--text-3); margin-top: 2px; }
+    .hero{min-height:100vh;display:flex;align-items:center;padding:100px 48px 80px;position:relative;overflow:hidden}
+    .hero-grid{position:absolute;inset:0;z-index:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:48px 48px;opacity:.5;mask-image:radial-gradient(ellipse 100% 100% at 50% 0%,black 40%,transparent 80%);-webkit-mask-image:radial-gradient(ellipse 100% 100% at 50% 0%,black 40%,transparent 80%)}
+    .hero-content{position:relative;z-index:1;max-width:640px}
+    .hero-eye{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-2);margin-bottom:24px;padding:6px 14px;background:var(--surface);border:1px solid var(--border);border-radius:100px}
+    .hero-eye .dot{width:6px;height:6px;border-radius:50%;background:#22C55E;animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+    .hero h1{font-size:clamp(44px,6vw,78px);font-weight:800;letter-spacing:-.04em;line-height:1.04;margin-bottom:24px}
+    .hero p{font-size:18px;color:var(--text-2);margin-bottom:40px;max-width:460px;line-height:1.7}
+    .hero-actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+    .hero-stats{display:flex;gap:48px;margin-top:72px;padding-top:40px;border-top:1px solid var(--border)}
+    .stat-n{font-size:30px;font-weight:800;letter-spacing:-.04em}
+    .stat-l{font-size:12px;color:var(--text-3);margin-top:2px}
 
     /* Floating mockup */
-    .hero-visual { position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 44%; max-width: 600px; z-index: 1; }
-    .hero-mockup { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-lg); animation: float 5s ease-in-out infinite; }
-    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
-    .mock-topbar { height: 42px; border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 16px; gap: 8px; }
-    .mock-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .mock-body { display: flex; }
-    .mock-sb { width: 42px; border-right: 1px solid var(--border); padding: 8px; display: flex; flex-direction: column; gap: 4px; background: var(--surface); }
-    .mock-sb-item { width: 26px; height: 26px; border-radius: 6px; background: #EFEFEF; }
-    .mock-sb-item.a { background: #1A1A1A; }
-    .mock-main { flex: 1; padding: 14px; background: #F5F5F5; }
-    .mock-title { width: 100px; height: 12px; background: #CCC; border-radius: 3px; margin-bottom: 14px; }
-    .mock-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; margin-bottom: 12px; }
-    .mock-card { background: #fff; border-radius: 6px; padding: 8px; border: 1px solid #E5E5E5; }
-    .mock-card-l { height: 7px; background: #E5E5E5; border-radius: 3px; margin-bottom: 5px; }
-    .mock-card-l.s { width: 55%; }
-    .mock-card-n { height: 14px; background: #CCC; border-radius: 3px; width: 65%; }
-    .mock-widget { background: #fff; border-radius: 6px; padding: 10px; border: 1px solid #E5E5E5; }
-    .mock-bars { display: flex; align-items: flex-end; gap: 3px; height: 36px; margin-top: 8px; }
-    .mock-bar { flex: 1; background: #E5E5E5; border-radius: 2px 2px 0 0; }
-    .mock-bar.hi { background: #1A1A1A; }
+    .hero-visual{position:absolute;right:0;top:50%;transform:translateY(-50%);width:44%;max-width:600px;z-index:1}
+    .hero-mock{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow-lg);animation:float 5s ease-in-out infinite}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+    .m-tb{height:42px;border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 16px;gap:8px}
+    .m-dot{width:10px;height:10px;border-radius:50%}
+    .m-body{display:flex}
+    .m-sb{width:42px;border-right:1px solid var(--border);padding:8px;display:flex;flex-direction:column;gap:4px;background:var(--surface)}
+    .m-si{width:26px;height:26px;border-radius:6px;background:#EFEFEF}
+    .m-si.a{background:#1A1A1A}
+    .m-main{flex:1;padding:14px;background:#F5F5F5}
+    .m-title{width:100px;height:12px;background:#CCC;border-radius:3px;margin-bottom:14px}
+    .m-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px}
+    .m-card{background:#fff;border-radius:6px;padding:8px;border:1px solid #E5E5E5}
+    .m-cl{height:7px;background:#E5E5E5;border-radius:3px;margin-bottom:5px}
+    .m-cl.s{width:55%}
+    .m-cn{height:14px;background:#CCC;border-radius:3px;width:65%}
+    .m-widget{background:#fff;border-radius:6px;padding:10px;border:1px solid #E5E5E5}
+    .m-bars{display:flex;align-items:flex-end;gap:3px;height:36px;margin-top:8px}
+    .m-bar{flex:1;background:#E5E5E5;border-radius:2px 2px 0 0}
+    .m-bar.hi{background:#1A1A1A}
 
-    /* SOBRE */
-    #sobre { padding: 100px 48px; background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .sobre-inner { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-    .section-tag { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text-3); margin-bottom: 14px; }
-    .section-title { font-size: clamp(28px, 3.5vw, 42px); font-weight: 800; letter-spacing: -.04em; line-height: 1.1; margin-bottom: 18px; }
-    .section-body { font-size: 16px; color: var(--text-2); line-height: 1.75; margin-bottom: 32px; }
-    .check-list { display: flex; flex-direction: column; gap: 13px; }
-    .check-item { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--text-2); line-height: 1.5; }
-    .check-item::before { content: '✓'; width: 20px; height: 20px; background: var(--text); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; flex-shrink: 0; margin-top: 1px; }
-    .sobre-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .sobre-card { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px; transition: all .2s; }
-    .sobre-card:hover { background: var(--surface); box-shadow: var(--shadow); }
-    .sc-icon { font-size: 22px; margin-bottom: 10px; }
-    .sobre-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 5px; letter-spacing: -.02em; }
-    .sobre-card p { font-size: 12.5px; color: var(--text-3); line-height: 1.6; }
+    /* SECTIONS */
+    #sobre{padding:100px 48px;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .sobre-in{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+    .s-tag{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:14px}
+    .s-title{font-size:clamp(28px,3.5vw,42px);font-weight:800;letter-spacing:-.04em;line-height:1.1;margin-bottom:18px}
+    .s-body{font-size:16px;color:var(--text-2);line-height:1.75;margin-bottom:32px}
+    .check-list{display:flex;flex-direction:column;gap:13px}
+    .check-item{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--text-2);line-height:1.5}
+    .check-item::before{content:'✓';width:20px;height:20px;background:var(--text);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;margin-top:1px}
+    .sobre-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .sc{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:20px;transition:all .2s}
+    .sc:hover{background:var(--surface);box-shadow:var(--shadow)}
+    .sc-ico{font-size:22px;margin-bottom:10px}
+    .sc h4{font-size:14px;font-weight:700;margin-bottom:5px;letter-spacing:-.02em}
+    .sc p{font-size:12.5px;color:var(--text-3);line-height:1.6}
 
-    /* SERVIÇOS */
-    #servicos { padding: 100px 48px; }
-    .svc-inner { max-width: 1120px; margin: 0 auto; }
-    .svc-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 48px; gap: 24px; flex-wrap: wrap; }
-    .svc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 18px; }
-    .svc-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 30px 26px; transition: all .2s; position: relative; overflow: hidden; cursor: default; }
-    .svc-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--text); transform: scaleX(0); transform-origin: left; transition: transform .3s ease; }
-    .svc-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
-    .svc-card:hover::before { transform: scaleX(1); }
-    .svc-num { font-size: 12px; font-weight: 700; color: var(--text-3); letter-spacing: .06em; margin-bottom: 18px; }
-    .svc-card h3 { font-size: 18px; font-weight: 700; letter-spacing: -.03em; margin-bottom: 10px; }
-    .svc-card p { font-size: 13.5px; color: var(--text-2); line-height: 1.7; margin-bottom: 18px; }
-    .svc-tag { display: inline-flex; padding: 4px 11px; background: var(--bg); border: 1px solid var(--border); border-radius: 100px; font-size: 11px; font-weight: 600; color: var(--text-2); }
+    #servicos{padding:100px 48px}
+    .svc-in{max-width:1120px;margin:0 auto}
+    .svc-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px;gap:24px;flex-wrap:wrap}
+    .svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+    .svc-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:30px 26px;transition:all .2s;position:relative;overflow:hidden}
+    .svc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--text);transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
+    .svc-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+    .svc-card:hover::before{transform:scaleX(1)}
+    .svc-num{font-size:12px;font-weight:700;color:var(--text-3);letter-spacing:.06em;margin-bottom:18px}
+    .svc-card h3{font-size:18px;font-weight:700;letter-spacing:-.03em;margin-bottom:10px}
+    .svc-card p{font-size:13.5px;color:var(--text-2);line-height:1.7;margin-bottom:18px}
+    .svc-tag{display:inline-flex;padding:4px 11px;background:var(--bg);border:1px solid var(--border);border-radius:100px;font-size:11px;font-weight:600;color:var(--text-2)}
 
-    /* CONTATO */
-    #contato { padding: 100px 48px; background: var(--text); }
-    .contato-inner { max-width: 1120px; margin: 0 auto; }
-    .contato-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
-    #contato .section-tag { color: rgba(255,255,255,.3); }
-    #contato .section-title { color: #fff; }
-    #contato .section-body { color: rgba(255,255,255,.5); }
-    .cp-list { display: flex; flex-direction: column; gap: 16px; margin-top: 32px; }
-    .cp-item { display: flex; align-items: center; gap: 14px; }
-    .cp-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(255,255,255,.08); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
-    .cp-item h5 { font-size: 13px; font-weight: 600; color: #fff; }
-    .cp-item p { font-size: 12px; color: rgba(255,255,255,.4); }
-    .cf { display: flex; flex-direction: column; gap: 13px; }
-    .cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
-    .cf-label { font-size: 12px; font-weight: 600; color: rgba(255,255,255,.45); margin-bottom: 6px; display: block; }
-    .cf-input { width: 100%; background: rgba(255,255,255,.06); border: 1.5px solid rgba(255,255,255,.1); border-radius: 8px; padding: 11px 14px; color: #fff; font-size: 13.5px; font-family: var(--font); outline: none; transition: border-color .15s; }
-    .cf-input::placeholder { color: rgba(255,255,255,.22); }
-    .cf-input:focus { border-color: rgba(255,255,255,.32); }
-    textarea.cf-input { min-height: 108px; resize: vertical; }
+    #contato{padding:100px 48px;background:var(--text)}
+    .ct-in{max-width:1120px;margin:0 auto}
+    .ct-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px}
+    #contato .s-tag{color:rgba(255,255,255,.3)}
+    #contato .s-title{color:#fff}
+    #contato .s-body{color:rgba(255,255,255,.5)}
+    .cp-list{display:flex;flex-direction:column;gap:16px;margin-top:32px}
+    .cp-item{display:flex;align-items:center;gap:14px}
+    .cp-ico{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+    .cp-item h5{font-size:13px;font-weight:600;color:#fff}
+    .cp-item p{font-size:12px;color:rgba(255,255,255,.4)}
+    .cf{display:flex;flex-direction:column;gap:13px}
+    .cf-row{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+    .cf-lbl{font-size:12px;font-weight:600;color:rgba(255,255,255,.45);margin-bottom:6px;display:block}
+    .cf-inp{width:100%;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:8px;padding:11px 14px;color:#fff;font-size:13.5px;font-family:var(--font);outline:none;transition:border-color .15s}
+    .cf-inp::placeholder{color:rgba(255,255,255,.22)}
+    .cf-inp:focus{border-color:rgba(255,255,255,.32)}
+    textarea.cf-inp{min-height:108px;resize:vertical}
 
-    /* FOOTER */
-    footer { background: var(--text); border-top: 1px solid rgba(255,255,255,.07); padding: 26px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
-    .footer-logo svg { width: 56px; height: auto; filter: invert(1); }
-    footer p { font-size: 12.5px; color: rgba(255,255,255,.28); }
-    .footer-links { display: flex; gap: 18px; }
-    .footer-links a { font-size: 12.5px; color: rgba(255,255,255,.28); text-decoration: none; transition: color .15s; }
-    .footer-links a:hover { color: rgba(255,255,255,.6); }
+    footer{background:var(--text);border-top:1px solid rgba(255,255,255,.07);padding:26px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+    .ft-logo svg{width:56px;height:auto;filter:invert(1)}
+    footer p{font-size:12.5px;color:rgba(255,255,255,.28)}
+    .ft-links{display:flex;gap:18px}
+    .ft-links a{font-size:12.5px;color:rgba(255,255,255,.28);text-decoration:none;transition:color .15s}
+    .ft-links a:hover{color:rgba(255,255,255,.6)}
 
     /* LOGIN MODAL */
-    .modal-overlay { position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,.5); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity .2s; }
-    .modal-overlay.open { opacity: 1; pointer-events: all; }
-    .modal { background: var(--surface); border-radius: 18px; width: 100%; max-width: 400px; padding: 42px 36px; box-shadow: var(--shadow-lg); position: relative; transform: scale(.95) translateY(10px); transition: transform .2s ease, opacity .2s ease; opacity: 0; }
-    .modal-overlay.open .modal { transform: scale(1) translateY(0); opacity: 1; }
-    .modal-close { position: absolute; top: 14px; right: 14px; width: 30px; height: 30px; border-radius: 50%; border: none; background: var(--bg); cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; color: var(--text-2); transition: background .15s; }
-    .modal-close:hover { background: var(--border); }
-    .modal-logo { margin-bottom: 6px; }
-    .modal-logo svg { width: 68px; }
-    .modal-sub { font-size: 14px; color: var(--text-2); margin-bottom: 24px; }
-    .demo-box { background: #F0FBF4; border: 1px solid #C0E8D0; border-radius: 8px; padding: 11px 14px; font-size: 12px; color: #1A6A35; line-height: 1.65; margin-bottom: 20px; }
-    .modal-field { margin-bottom: 13px; }
-    .modal-field label { font-size: 12px; font-weight: 600; color: var(--text-2); display: block; margin-bottom: 6px; }
-    .modal-field input { width: 100%; border: 1.5px solid var(--border); border-radius: 8px; padding: 11px 14px; font-size: 14px; font-family: var(--font); color: var(--text); outline: none; transition: border-color .15s; background: var(--bg); }
-    .modal-field input:focus { border-color: var(--text); background: #fff; }
-    .modal-actions { margin-top: 4px; }
-    .modal-actions .btn { width: 100%; justify-content: center; padding: 13px; font-size: 14px; }
-    .modal-foot { text-align: center; margin-top: 14px; font-size: 12px; color: var(--text-3); }
-    .modal-foot a { color: var(--text-2); cursor: pointer; text-decoration: none; }
-    .modal-foot a:hover { text-decoration: underline; }
+    .modal-ov{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .2s}
+    .modal-ov.open{opacity:1;pointer-events:all}
+    .modal{background:var(--surface);border-radius:18px;width:100%;max-width:400px;padding:42px 36px;box-shadow:var(--shadow-lg);position:relative;transform:scale(.95) translateY(10px);transition:transform .2s ease,opacity .2s ease;opacity:0}
+    .modal-ov.open .modal{transform:scale(1) translateY(0);opacity:1}
+    .modal-close{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;border:none;background:var(--bg);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;color:var(--text-2);transition:background .15s}
+    .modal-close:hover{background:var(--border)}
+    .modal-logo{margin-bottom:6px}
+    .modal-logo svg{width:68px}
+    .modal-sub{font-size:14px;color:var(--text-2);margin-bottom:24px}
+    .demo-box{background:#F0FBF4;border:1px solid #C0E8D0;border-radius:8px;padding:11px 14px;font-size:12px;color:#1A6A35;line-height:1.65;margin-bottom:20px}
+    .m-field{margin-bottom:13px}
+    .m-field label{font-size:12px;font-weight:600;color:var(--text-2);display:block;margin-bottom:6px}
+    .m-field input{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:11px 14px;font-size:14px;font-family:var(--font);color:var(--text);outline:none;transition:border-color .15s;background:var(--bg)}
+    .m-field input:focus{border-color:var(--text);background:#fff}
+    .m-actions{margin-top:4px}
+    .m-actions .btn{width:100%;justify-content:center;padding:13px;font-size:14px}
+    .m-foot{text-align:center;margin-top:14px;font-size:12px;color:var(--text-3)}
+    .m-foot a{color:var(--text-2);cursor:pointer;text-decoration:none}
+    .m-foot a:hover{text-decoration:underline}
 
-    /* RESPONSIVE */
-    @media (max-width: 900px) {
-      nav { padding: 0 20px; }
-      .nav-links { display: none; }
-      .hero { padding: 100px 20px 60px; }
-      .hero-visual { display: none; }
-      #sobre { padding: 70px 20px; }
-      .sobre-inner { grid-template-columns: 1fr; gap: 40px; }
-      #servicos { padding: 70px 20px; }
-      .svc-inner { max-width: 100%; }
-      #contato { padding: 70px 20px; }
-      .contato-grid { grid-template-columns: 1fr; gap: 48px; }
-      footer { padding: 24px 20px; }
-      .cf-row { grid-template-columns: 1fr; }
+    @media(max-width:900px){
+      nav{padding:0 20px}.nav-links{display:none}
+      .hero{padding:100px 20px 60px}.hero-visual{display:none}
+      #sobre{padding:70px 20px}.sobre-in{grid-template-columns:1fr;gap:40px}
+      #servicos{padding:70px 20px}.svc-in{max-width:100%}
+      #contato{padding:70px 20px}.ct-grid{grid-template-columns:1fr;gap:48px}
+      footer{padding:24px 20px}.cf-row{grid-template-columns:1fr}
     }
   </style>
 </head>
@@ -178,13 +159,7 @@
 
 <nav id="mainNav">
   <a class="nav-logo" href="index.html">
-    <svg viewBox="0 0 537 181" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M94.38 73.46C94.07 73.97 93.32 73.97 93.01 73.46L47.88 0H0V180.2H53.54L52.05 90.83L92.52 154.37C93.07 155.23 94.32 155.23 94.87 154.37L135.34 90.83L133.85 180.2H187.39V0H139.51L94.38 73.46Z" fill="#161616"/>
-      <path d="M343.9 104.08C340.66 98.11 336.08 93.01 330.29 88.92L324.63 85.3L318.88 82.14L324.17 78.26C327.14 76.09 329.7 73.44 331.79 70.39C333.35 68.17 334.65 65.82 335.7 63.28C337.2 59.04 338.3 54.46C338.9 50.41C339.27 43.59C339.27 34.89 336.85 27.19 332.08 20.71C327.43 14.18 320.52 9.08 311.48 5.5C304.9 2.84 297.13 1.15 288.28 0.46C282.82 0.13 279.95 0.1H195.63V180.28H263.17L347.34 112.83C346.53 109.73 345.38 106.81 343.9 104.08ZM247.11 43.85H268.48C274.63 43.85 279.05 45.15 281.61 47.71C284.34 50.1 285.73 53.3 285.73 57.23C285.73 60.14 285.12 62.65 283.92 64.7C282.89 66.59 281.08 68.06 278.52 69.07C276.13 70.1 272.92 70.62 268.99 70.62H247.11V43.85ZM292.98 129.75C291.73 132.03 290.07 133.71 287.95 134.89C285.42 136.02 282.71 136.52 279.55 136.52H247.11V107.69H278.26C281.85 107.69 284.88 108.29 287.27 109.49C289.66 110.52 291.48 112.07 292.68 114.12C294.04 116 294.74 118.43 294.74 121.33C294.74 124.54 294.14 127.37 292.98 129.75Z" fill="#161616"/>
-      <path d="M338.54 15.99C344.33 23.87 347.27 33.16 347.27 43.59L382.14 85.06L438.39 39.98L410.16 0.09H319.05C325.55 3.6 328.35 5.68C332.38 8.68 335.78 12.12 338.54 15.99Z" fill="#161616"/>
-      <path d="M535.97 177.87L478.82 97.11L449.27 138.86L500.95 180.27H535.38C536.27 178.8 535.97 177.88V177.87Z" fill="#161616"/>
-      <path d="M535.97 2.49C535.38 0.09H500.95L443.02 46.52L388.53 90.18L279.19 177.8C278.17 178.63 278.75 180.28 280.06 180.28H410.16L443.02 133.85L473.92 90.18L535.97 2.49Z" fill="#161616"/>
-    </svg>
+    <svg viewBox="0 0 537 181" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M94.38 73.46C94.07 73.97 93.32 73.97 93.01 73.46L47.88 0H0V180.2H53.54L52.05 90.83L92.52 154.37C93.07 155.23 94.32 155.23 94.87 154.37L135.34 90.83L133.85 180.2H187.39V0H139.51L94.38 73.46Z" fill="#161616"/><path d="M535.97 2.49C535.38 0.09H500.95L443.02 46.52L388.53 90.18L279.19 177.8C278.17 178.63 278.75 180.28 280.06 180.28H410.16L443.02 133.85L473.92 90.18L535.97 2.49Z" fill="#161616"/><path d="M535.97 177.87L478.82 97.11L449.27 138.86L500.95 180.27H535.38C536.27 178.8 535.97 177.87Z" fill="#161616"/><path d="M338.54 15.99C344.33 23.87 347.27 43.59L382.14 85.06L438.39 39.98L410.16 0.09H319.05C332.38 8.68 338.54 15.99Z" fill="#161616"/><path d="M247.11 43.85H268.48C274.63 43.85 279.05 45.15 281.61 47.71C285.73 57.23C283.92 64.7C278.52 69.07C272.92 70.62H247.11V43.85ZM195.63 0.09V180.28H263.17L347.34 112.83C343.9 104.08C336.08 93.01C330.29 88.92L318.88 82.14L332.08 20.71C327.43 14.18C311.48 5.5C288.28 0.46H195.63Z" fill="#161616"/></svg>
   </a>
   <ul class="nav-links">
     <li><a href="#sobre">Sobre</a></li>
@@ -199,9 +174,9 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg-grid"></div>
+  <div class="hero-grid"></div>
   <div class="hero-content">
-    <div class="hero-eyebrow"><span class="dot"></span>Plataforma de Aprendizado</div>
+    <div class="hero-eye"><span class="dot"></span>Plataforma de Aprendizado</div>
     <h1>Aprenda.<br>Evolua.<br>Chegue lá.</h1>
     <p>Uma plataforma completa para sua jornada educacional — aulas, avaliações, TCC e muito mais em um só lugar.</p>
     <div class="hero-actions">
@@ -209,45 +184,20 @@
       <a class="btn btn-outline" href="#servicos" style="padding:13px 22px;font-size:14px">Ver serviços</a>
     </div>
     <div class="hero-stats">
-      <div><div class="stat-num">12k+</div><div class="stat-label">Alunos ativos</div></div>
-      <div><div class="stat-num">340+</div><div class="stat-label">Aulas gravadas</div></div>
-      <div><div class="stat-num">98%</div><div class="stat-label">Satisfação</div></div>
+      <div><div class="stat-n">12k+</div><div class="stat-l">Alunos ativos</div></div>
+      <div><div class="stat-n">340+</div><div class="stat-l">Aulas gravadas</div></div>
+      <div><div class="stat-n">98%</div><div class="stat-l">Satisfação</div></div>
     </div>
   </div>
   <div class="hero-visual">
-    <div class="hero-mockup">
-      <div class="mock-topbar">
-        <div class="mock-dot" style="background:#FF5F57"></div>
-        <div class="mock-dot" style="background:#FEBC2E"></div>
-        <div class="mock-dot" style="background:#28C840"></div>
-      </div>
-      <div class="mock-body">
-        <div class="mock-sb">
-          <div class="mock-sb-item a"></div>
-          <div class="mock-sb-item"></div>
-          <div class="mock-sb-item"></div>
-          <div class="mock-sb-item"></div>
-          <div class="mock-sb-item"></div>
-        </div>
-        <div class="mock-main">
-          <div class="mock-title"></div>
-          <div class="mock-cards">
-            <div class="mock-card"><div class="mock-card-l"></div><div class="mock-card-l s"></div><div class="mock-card-n"></div></div>
-            <div class="mock-card"><div class="mock-card-l"></div><div class="mock-card-l s"></div><div class="mock-card-n"></div></div>
-            <div class="mock-card"><div class="mock-card-l"></div><div class="mock-card-l s"></div><div class="mock-card-n"></div></div>
-          </div>
-          <div class="mock-widget">
-            <div class="mock-card-l" style="width:70px;margin-bottom:0"></div>
-            <div class="mock-bars">
-              <div class="mock-bar" style="height:40%"></div>
-              <div class="mock-bar" style="height:65%"></div>
-              <div class="mock-bar" style="height:50%"></div>
-              <div class="mock-bar hi" style="height:85%"></div>
-              <div class="mock-bar" style="height:55%"></div>
-              <div class="mock-bar" style="height:70%"></div>
-              <div class="mock-bar" style="height:45%"></div>
-            </div>
-          </div>
+    <div class="hero-mock">
+      <div class="m-tb"><div class="m-dot" style="background:#FF5F57"></div><div class="m-dot" style="background:#FEBC2E"></div><div class="m-dot" style="background:#28C840"></div></div>
+      <div class="m-body">
+        <div class="m-sb"><div class="m-si a"></div><div class="m-si"></div><div class="m-si"></div><div class="m-si"></div><div class="m-si"></div></div>
+        <div class="m-main">
+          <div class="m-title"></div>
+          <div class="m-cards"><div class="m-card"><div class="m-cl"></div><div class="m-cl s"></div><div class="m-cn"></div></div><div class="m-card"><div class="m-cl"></div><div class="m-cl s"></div><div class="m-cn"></div></div><div class="m-card"><div class="m-cl"></div><div class="m-cl s"></div><div class="m-cn"></div></div></div>
+          <div class="m-widget"><div class="m-cl" style="width:70px;margin-bottom:0"></div><div class="m-bars"><div class="m-bar" style="height:40%"></div><div class="m-bar" style="height:65%"></div><div class="m-bar" style="height:50%"></div><div class="m-bar hi" style="height:85%"></div><div class="m-bar" style="height:55%"></div><div class="m-bar" style="height:70%"></div><div class="m-bar" style="height:45%"></div></div></div>
         </div>
       </div>
     </div>
@@ -255,138 +205,95 @@
 </section>
 
 <!-- SOBRE -->
-<section id="sobre">
-  <div class="sobre-inner">
-    <div>
-      <p class="section-tag">Sobre a plataforma</p>
-      <h2 class="section-title">Feita para quem quer chegar longe</h2>
-      <p class="section-body">A MBX reúne tecnologia com metodologia pedagógica comprovada para criar uma experiência de aprendizado única e eficaz.</p>
-      <div class="check-list">
-        <div class="check-item">Aprendizado 100% online no seu ritmo</div>
-        <div class="check-item">Professores especialistas com experiência real</div>
-        <div class="check-item">Certificados reconhecidos pelo mercado</div>
-        <div class="check-item">Suporte dedicado e comunidade ativa</div>
-      </div>
-    </div>
-    <div class="sobre-cards">
-      <div class="sobre-card"><div class="sc-icon">📱</div><h4>Mobile First</h4><p>Acesse em qualquer dispositivo, a qualquer hora.</p></div>
-      <div class="sobre-card" style="margin-top:22px"><div class="sc-icon">📊</div><h4>Dashboard</h4><p>Acompanhe seu progresso em tempo real.</p></div>
-      <div class="sobre-card"><div class="sc-icon">🎯</div><h4>Avaliações</h4><p>Provas adaptativas ao seu nível.</p></div>
-      <div class="sobre-card" style="margin-top:-22px"><div class="sc-icon">🏆</div><h4>Gamificação</h4><p>Conquistas para manter sua motivação alta.</p></div>
+<section id="sobre"><div class="sobre-in">
+  <div>
+    <p class="s-tag">Sobre a plataforma</p>
+    <h2 class="s-title">Feita para quem quer chegar longe</h2>
+    <p class="s-body">A MBX reúne tecnologia com metodologia pedagógica comprovada para criar uma experiência de aprendizado única e eficaz.</p>
+    <div class="check-list">
+      <div class="check-item">Aprendizado 100% online no seu ritmo</div>
+      <div class="check-item">Professores especialistas com experiência real</div>
+      <div class="check-item">Certificados reconhecidos pelo mercado</div>
+      <div class="check-item">Suporte dedicado e comunidade ativa</div>
     </div>
   </div>
-</section>
+  <div class="sobre-cards">
+    <div class="sc"><div class="sc-ico">📱</div><h4>Mobile First</h4><p>Acesse em qualquer dispositivo, a qualquer hora.</p></div>
+    <div class="sc" style="margin-top:22px"><div class="sc-ico">📊</div><h4>Dashboard</h4><p>Acompanhe seu progresso em tempo real.</p></div>
+    <div class="sc"><div class="sc-ico">🎯</div><h4>Avaliações</h4><p>Provas adaptativas ao seu nível.</p></div>
+    <div class="sc" style="margin-top:-22px"><div class="sc-ico">🏆</div><h4>Gamificação</h4><p>Conquistas para manter sua motivação alta.</p></div>
+  </div>
+</div></section>
 
 <!-- SERVIÇOS -->
-<section id="servicos">
-  <div class="svc-inner">
-    <div class="svc-head">
-      <div>
-        <p class="section-tag">O que oferecemos</p>
-        <h2 class="section-title">Nossos serviços</h2>
-      </div>
-      <button class="btn btn-outline" onclick="openLogin()">Ver plataforma →</button>
-    </div>
-    <div class="svc-grid">
-      <div class="svc-card"><div class="svc-num">01</div><h3>Cursos Online</h3><p>Mais de 340 aulas gravadas em alta definição com professores especialistas das maiores empresas do Brasil.</p><span class="svc-tag">Vídeo · Ebook</span></div>
-      <div class="svc-card"><div class="svc-num">02</div><h3>Avaliações</h3><p>Sistema completo com questões objetivas, dissertativas e estudos de caso com feedback instantâneo.</p><span class="svc-tag">Adaptativo · Feedback</span></div>
-      <div class="svc-card"><div class="svc-num">03</div><h3>Meu TCC</h3><p>Plataforma dedicada para orientação, envio e acompanhamento do trabalho de conclusão de curso.</p><span class="svc-tag">Orientação · Defesa</span></div>
-      <div class="svc-card"><div class="svc-num">04</div><h3>Biblioteca Digital</h3><p>Acesso ilimitado a e-books, artigos científicos, cases e materiais complementares exclusivos.</p><span class="svc-tag">PDF · Artigos · Cases</span></div>
-    </div>
+<section id="servicos"><div class="svc-in">
+  <div class="svc-head">
+    <div><p class="s-tag">O que oferecemos</p><h2 class="s-title">Nossos serviços</h2></div>
+    <button class="btn btn-outline" onclick="openLogin()">Ver plataforma →</button>
   </div>
-</section>
+  <div class="svc-grid">
+    <div class="svc-card"><div class="svc-num">01</div><h3>Cursos Online</h3><p>Mais de 340 aulas gravadas em HD com professores especialistas das maiores empresas do Brasil.</p><span class="svc-tag">Vídeo · Ebook</span></div>
+    <div class="svc-card"><div class="svc-num">02</div><h3>Avaliações</h3><p>Sistema completo com questões objetivas, dissertativas e estudos de caso com feedback instantâneo.</p><span class="svc-tag">Adaptativo · Feedback</span></div>
+    <div class="svc-card"><div class="svc-num">03</div><h3>Meu TCC</h3><p>Plataforma dedicada para orientação, envio e acompanhamento do trabalho de conclusão de curso.</p><span class="svc-tag">Orientação · Defesa</span></div>
+    <div class="svc-card"><div class="svc-num">04</div><h3>Biblioteca Digital</h3><p>Acesso ilimitado a e-books, artigos científicos, cases e materiais complementares exclusivos.</p><span class="svc-tag">PDF · Artigos · Cases</span></div>
+  </div>
+</div></section>
 
 <!-- CONTATO -->
-<section id="contato">
-  <div class="contato-inner">
-    <div class="contato-grid">
-      <div>
-        <p class="section-tag">Entre em contato</p>
-        <h2 class="section-title">Fale com nossa equipe</h2>
-        <p class="section-body">Tire dúvidas, conheça os planos ou solicite uma demonstração.</p>
-        <div class="cp-list">
-          <div class="cp-item"><div class="cp-icon">✉️</div><div><h5>Email</h5><p>contato@mbx.academy</p></div></div>
-          <div class="cp-item"><div class="cp-icon">📞</div><div><h5>Telefone</h5><p>(11) 4000-0000</p></div></div>
-          <div class="cp-item"><div class="cp-icon">📍</div><div><h5>Localização</h5><p>São Paulo, SP — Brasil</p></div></div>
-        </div>
-      </div>
-      <form class="cf" onsubmit="handleContact(event)">
-        <div class="cf-row">
-          <div><label class="cf-label">Nome</label><input type="text" class="cf-input" placeholder="Seu nome"></div>
-          <div><label class="cf-label">Email</label><input type="email" class="cf-input" placeholder="seu@email.com"></div>
-        </div>
-        <div><label class="cf-label">Assunto</label><input type="text" class="cf-input" placeholder="Como podemos ajudar?"></div>
-        <div><label class="cf-label">Mensagem</label><textarea class="cf-input" placeholder="Descreva sua dúvida ou solicitação..."></textarea></div>
-        <button type="submit" class="btn btn-white" style="justify-content:center">Enviar mensagem</button>
-      </form>
+<section id="contato"><div class="ct-in"><div class="ct-grid">
+  <div>
+    <p class="s-tag">Entre em contato</p>
+    <h2 class="s-title">Fale com nossa equipe</h2>
+    <p class="s-body">Tire dúvidas, conheça os planos ou solicite uma demonstração.</p>
+    <div class="cp-list">
+      <div class="cp-item"><div class="cp-ico">✉️</div><div><h5>Email</h5><p>contato@mbx.academy</p></div></div>
+      <div class="cp-item"><div class="cp-ico">📞</div><div><h5>Telefone</h5><p>(11) 4000-0000</p></div></div>
+      <div class="cp-item"><div class="cp-ico">📍</div><div><h5>Localização</h5><p>São Paulo, SP — Brasil</p></div></div>
     </div>
   </div>
-</section>
+  <form class="cf" onsubmit="handleCt(event)">
+    <div class="cf-row"><div><label class="cf-lbl">Nome</label><input type="text" class="cf-inp" placeholder="Seu nome"></div><div><label class="cf-lbl">Email</label><input type="email" class="cf-inp" placeholder="seu@email.com"></div></div>
+    <div><label class="cf-lbl">Assunto</label><input type="text" class="cf-inp" placeholder="Como podemos ajudar?"></div>
+    <div><label class="cf-lbl">Mensagem</label><textarea class="cf-inp" placeholder="Descreva sua dúvida..."></textarea></div>
+    <button type="submit" class="btn btn-white" style="justify-content:center">Enviar mensagem</button>
+  </form>
+</div></div></section>
 
 <footer>
-  <div class="footer-logo">
-    <svg viewBox="0 0 537 181" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M94.38 73.46C94.07 73.97 93.32 73.97 93.01 73.46L47.88 0H0V180.2H53.54L52.05 90.83L92.52 154.37C93.07 155.23 94.32 155.23 94.87 154.37L135.34 90.83L133.85 180.2H187.39V0H139.51L94.38 73.46Z" fill="white"/><path d="M535.97 2.49C535.38 0.09H500.95L443.02 46.52L388.53 90.18L279.19 177.8C278.17 178.63 278.75 180.28 280.06 180.28H410.16L443.02 133.85L473.92 90.18L535.97 2.49Z" fill="white"/><path d="M535.97 177.87L478.82 97.11L449.27 138.86L500.95 180.27H535.38C536.27 178.8 535.97 177.87Z" fill="white"/><path d="M338.54 15.99C344.33 23.87 347.27 33.16 347.27 43.59L382.14 85.06L438.39 39.98L410.16 0.09H319.05C325.55 3.6 332.38 8.68 338.54 15.99Z" fill="white"/></svg>
-  </div>
+  <div class="ft-logo"><svg viewBox="0 0 537 181" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M94.38 73.46C94.07 73.97 93.32 73.97 93.01 73.46L47.88 0H0V180.2H53.54L52.05 90.83L92.52 154.37C93.07 155.23 94.32 155.23 94.87 154.37L135.34 90.83L133.85 180.2H187.39V0H139.51L94.38 73.46Z" fill="white"/><path d="M535.97 2.49C535.38 0.09H500.95L443.02 46.52L388.53 90.18L279.19 177.8C278.75 180.28 280.06 180.28H410.16L443.02 133.85L535.97 2.49Z" fill="white"/></svg></div>
   <p>© 2026 MBX Academy. Todos os direitos reservados.</p>
-  <div class="footer-links">
-    <a href="#">Privacidade</a>
-    <a href="#">Termos</a>
-    <a href="#">Suporte</a>
-  </div>
+  <div class="ft-links"><a href="#">Privacidade</a><a href="#">Termos</a><a href="#">Suporte</a></div>
 </footer>
 
 <!-- LOGIN MODAL -->
-<div class="modal-overlay" id="loginModal">
+<div class="modal-ov" id="loginModal">
   <div class="modal">
     <button class="modal-close" onclick="closeLogin()">✕</button>
     <div class="modal-logo">
-      <svg viewBox="0 0 537 181" fill="none" xmlns="http://www.w3.org/2000/svg" width="68"><path d="M94.38 73.46C94.07 73.97 93.32 73.97 93.01 73.46L47.88 0H0V180.2H53.54L52.05 90.83L92.52 154.37C93.07 155.23 94.32 155.23 94.87 154.37L135.34 90.83L133.85 180.2H187.39V0H139.51L94.38 73.46Z" fill="#161616"/><path d="M535.97 2.49C535.38 0.09H500.95L443.02 46.52L388.53 90.18L279.19 177.8C278.17 178.63 278.75 180.28 280.06 180.28H410.16L443.02 133.85L473.92 90.18L535.97 2.49Z" fill="#161616"/><path d="M535.97 177.87L478.82 97.11L449.27 138.86L500.95 180.27H535.38C536.27 178.8 535.97 177.87Z" fill="#161616"/><path d="M338.54 15.99C344.33 23.87 347.27 33.16 347.27 43.59L382.14 85.06L438.39 39.98L410.16 0.09H319.05C325.55 3.6 332.38 8.68 338.54 15.99Z" fill="#161616"/></svg>
+      <svg viewBox="0 0 537 181" fill="none" xmlns="http://www.w3.org/2000/svg" width="68"><path d="M94.38 73.46C94.07 73.97 93.32 73.97 93.01 73.46L47.88 0H0V180.2H53.54L52.05 90.83L92.52 154.37C93.07 155.23 94.32 155.23 94.87 154.37L135.34 90.83L133.85 180.2H187.39V0H139.51L94.38 73.46Z" fill="#161616"/><path d="M535.97 2.49C535.38 0.09H500.95L443.02 46.52L388.53 90.18L279.19 177.8C278.75 180.28 280.06 180.28H410.16L443.02 133.85L535.97 2.49Z" fill="#161616"/></svg>
     </div>
     <p class="modal-sub">Entre na sua conta para continuar</p>
-    <div class="demo-box"><strong>Demo:</strong> Use qualquer email e senha para entrar na plataforma.</div>
-    <div class="modal-field">
-      <label>Email</label>
-      <input type="email" id="loginEmail" placeholder="seu@email.com" value="luiz@mbx.academy">
-    </div>
-    <div class="modal-field">
-      <label>Senha</label>
-      <input type="password" id="loginPass" placeholder="••••••••" value="123456">
-    </div>
-    <div class="modal-actions">
-      <button class="btn btn-dark" onclick="doLogin()">Entrar na plataforma</button>
-    </div>
-    <p class="modal-foot"><a>Esqueceu a senha?</a> &nbsp;·&nbsp; <a>Criar conta</a></p>
+    <div class="demo-box"><strong>Demo:</strong> Use qualquer email e senha para acessar.</div>
+    <div class="m-field"><label>Email</label><input type="email" id="loginEmail" value="luiz@mbx.academy" placeholder="seu@email.com"></div>
+    <div class="m-field"><label>Senha</label><input type="password" id="loginPass" value="123456" placeholder="••••••••"></div>
+    <div class="m-actions"><button class="btn btn-dark" onclick="doLogin()">Entrar na plataforma</button></div>
+    <p class="m-foot"><a>Esqueceu a senha?</a> &nbsp;·&nbsp; <a>Criar conta</a></p>
   </div>
 </div>
 
 <script>
-  // Nav shadow on scroll
   window.addEventListener('scroll', () => {
     document.getElementById('mainNav').style.boxShadow = window.scrollY > 8 ? '0 2px 20px rgba(0,0,0,.06)' : '';
   });
-
-  function openLogin() {
-    document.getElementById('loginModal').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeLogin() {
-    document.getElementById('loginModal').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-  document.getElementById('loginModal').addEventListener('click', function(e) {
-    if (e.target === this) closeLogin();
-  });
+  function openLogin() { document.getElementById('loginModal').classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeLogin() { document.getElementById('loginModal').classList.remove('open'); document.body.style.overflow = ''; }
+  document.getElementById('loginModal').addEventListener('click', function(e) { if (e.target === this) closeLogin(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLogin(); });
-
   function doLogin() {
-    // Redirect to dashboard — relative path works on GitHub Pages
-    window.location.href = 'dashboard/index.html';
+    // ← Redirects to dashboard.html at the repo root
+    window.location.href = 'dashboard.html';
   }
-
-  function handleContact(e) {
-    e.preventDefault();
-    alert('Mensagem enviada com sucesso! Retornaremos em breve.');
-  }
+  function handleCt(e) { e.preventDefault(); alert('Mensagem enviada! Retornaremos em breve.'); }
 </script>
 </body>
 </html>

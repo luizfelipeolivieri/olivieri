@@ -3,67 +3,49 @@
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MBX — Aluno Indica Aluno</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="dashboard.css">
   <style>
-    .inner{max-width:680px}
-    .rh{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:40px;text-align:center;margin-bottom:22px}
-    .rh-em{font-size:46px;margin-bottom:16px}
-    .rh h2{font-size:22px;font-weight:800;letter-spacing:-.04em;margin-bottom:10px}
-    .rh p{font-size:14px;color:var(--text-2);line-height:1.7;max-width:380px;margin:0 auto 24px}
-    .code-box{display:flex;align-items:center;gap:10px;background:var(--bg);border:1.5px dashed var(--border);border-radius:10px;padding:12px 18px;max-width:280px;margin:0 auto;cursor:pointer}
-    .code-val{font-size:18px;font-weight:800;letter-spacing:.12em;flex:1;text-align:center}
-    .copy-lbl{font-size:12px;color:var(--text-3);white-space:nowrap}
-    .rs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px}
-    .rc{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;text-align:center}
-    .rc .n{font-size:26px;font-weight:800;letter-spacing:-.04em}
-    .rc label{font-size:12px;color:var(--text-3);display:block;margin-top:4px}
+    .inn{max-width:660px}
+    .rh{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:38px;text-align:center;margin-bottom:20px}
+    .rh-em{font-size:44px;margin-bottom:15px}
+    .rh h2{font-size:22px;font-weight:800;letter-spacing:-.04em;margin-bottom:9px}
+    .rh p{font-size:14px;color:var(--text-2);line-height:1.7;max-width:360px;margin:0 auto 22px}
+    .code-box{display:flex;align-items:center;gap:10px;background:var(--bg);border:1.5px dashed var(--border);border-radius:10px;padding:11px 17px;max-width:270px;margin:0 auto;cursor:pointer}
+    .code-v{font-size:17px;font-weight:800;letter-spacing:.12em;flex:1;text-align:center}
+    .cp-l{font-size:12px;color:var(--text-3);white-space:nowrap}
+    .rs{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-bottom:20px}
+    .rc{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:17px;text-align:center}
+    .rc .n{font-size:25px;font-weight:800;letter-spacing:-.04em}
+    .rc label{font-size:12px;color:var(--text-3);display:block;margin-top:3px}
     .rl{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden}
-    .rl-h{padding:16px 20px;border-bottom:1px solid var(--border);font-size:15px;font-weight:700}
+    .rl-h{padding:15px 19px;border-bottom:1px solid var(--border);font-size:15px;font-weight:700}
   </style>
 </head>
 <body>
-<div class="app" id="app">
-  <div id="topbar-mount"></div>
-  <div class="app-body">
-    <div id="sidebar-mount"></div>
-    <main class="main">
-      <div class="page-pad fade-in">
-        <div class="page-h">Aluno Indica Aluno</div>
-        <div class="page-sh">Ganhe descontos indicando amigos para a MBX</div>
-        <div class="inner">
-          <div class="rh">
-            <div class="rh-em">🎁</div>
-            <h2>Indique e ganhe descontos!</h2>
-            <p>Para cada amigo que se matricular com seu código, você ganha <strong>R$ 50</strong> de desconto na próxima mensalidade.</p>
-            <div class="code-box" onclick="copyCode()">
-              <span class="code-val">MBX-LUIZ21</span>
-              <span class="copy-lbl" id="cpLbl">📋 Copiar</span>
-            </div>
-          </div>
-          <div class="rs">
-            <div class="rc"><div class="n">3</div><label>Indicações feitas</label></div>
-            <div class="rc"><div class="n">2</div><label>Convertidas</label></div>
-            <div class="rc"><div class="n">R$ 100</div><label>Descontos ganhos</label></div>
-          </div>
-          <div class="rl">
-            <div class="rl-h">Suas indicações</div>
-            <table class="tbl">
-              <thead><tr><th>Amigo</th><th>Data</th><th>Status</th><th>Desconto</th></tr></thead>
-              <tbody>
-                <tr><td><strong>Mariana Costa</strong></td><td>15 Fev 2026</td><td><span class="pill pill-green">Matriculada</span></td><td>R$ 50,00</td></tr>
-                <tr><td><strong>Felipe Souza</strong></td><td>03 Mar 2026</td><td><span class="pill pill-green">Matriculado</span></td><td>R$ 50,00</td></tr>
-                <tr><td><strong>Camila Lima</strong></td><td>18 Mar 2026</td><td><span class="pill pill-orange">Pendente</span></td><td>—</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </main>
+<div class="app" id="app"><div id="topbar-mount"></div><div class="app-body"><div id="sidebar-mount"></div>
+<main class="main"><div class="page-pad fade-in">
+  <div class="page-h">Aluno Indica Aluno</div><div class="page-sh">Ganhe descontos indicando amigos para a MBX</div>
+  <div class="inn">
+    <div class="rh">
+      <div class="rh-em">🎁</div>
+      <h2>Indique e ganhe descontos!</h2>
+      <p>Para cada amigo que se matricular com seu código, você ganha <strong>R$ 50</strong> de desconto na próxima mensalidade.</p>
+      <div class="code-box" onclick="cpCode()"><span class="code-v">MBX-LUIZ21</span><span class="cp-l" id="cpL">📋 Copiar</span></div>
+    </div>
+    <div class="rs">
+      <div class="rc"><div class="n">3</div><label>Indicações feitas</label></div>
+      <div class="rc"><div class="n">2</div><label>Convertidas</label></div>
+      <div class="rc"><div class="n">R$ 100</div><label>Descontos ganhos</label></div>
+    </div>
+    <div class="rl"><div class="rl-h">Suas indicações</div>
+      <table class="tbl"><thead><tr><th>Amigo</th><th>Data</th><th>Status</th><th>Desconto</th></tr></thead><tbody>
+        <tr><td><strong>Mariana Costa</strong></td><td>15 Fev 2026</td><td><span class="pill pill-green">Matriculada</span></td><td>R$ 50,00</td></tr>
+        <tr><td><strong>Felipe Souza</strong></td><td>03 Mar 2026</td><td><span class="pill pill-green">Matriculado</span></td><td>R$ 50,00</td></tr>
+        <tr><td><strong>Camila Lima</strong></td><td>18 Mar 2026</td><td><span class="pill pill-orange">Pendente</span></td><td>—</td></tr>
+      </tbody></table>
+    </div>
   </div>
-</div>
-<script src="app.js"></script>
-<script>
-  function copyCode(){navigator.clipboard?.writeText('MBX-LUIZ21');const l=document.getElementById('cpLbl');l.textContent='✓ Copiado!';setTimeout(()=>l.textContent='📋 Copiar',2000)}
-</script>
-</body>
-</html>
+</div></main></div></div>
+<script src="dashboard.js"></script>
+<script>function cpCode(){navigator.clipboard?.writeText("MBX-LUIZ21");const l=document.getElementById("cpL");l.textContent="✓ Copiado!";setTimeout(()=>l.textContent="📋 Copiar",2000)}</script>
+</body></html>
