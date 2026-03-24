@@ -10,24 +10,26 @@ export default function DashboardPage() {
   const [userEmail, setUserEmail] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
+ useEffect(() => {
 
-    async function checkUser() {
+  if (typeof window === 'undefined') return
 
-      const { data } = await supabase.auth.getUser()
+  async function checkUser() {
 
-      if (!data.user) {
-        router.push('/login')
-        return
-      }
+    const { data } = await supabase.auth.getUser()
 
-      setUserEmail(data.user.email ?? null)
-      setLoading(false)
+    if (!data.user) {
+      router.push('/login')
+      return
     }
 
-    checkUser()
+    setUserEmail(data.user.email ?? null)
+    setLoading(false)
+  }
 
-  }, [router])
+  checkUser()
+
+}, [router])
 
   async function handleLogout() {
 
