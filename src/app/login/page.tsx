@@ -14,21 +14,26 @@ export default function LoginPage() {
 
   async function handleLogin() {
 
-    setLoading(true)
-
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password: senha,
-    })
-
-    if (error) {
-      alert('Erro ao realizar login: ' + error.message)
-      setLoading(false)
-      return
-    }
-
-    router.push('/dashboard')
+  if (!email || !senha) {
+    alert('Preencha todos os campos')
+    return
   }
+
+  setLoading(true)
+
+  const { error } = await supabase.auth.signInWithPassword({
+    email,
+    password: senha,
+  })
+
+  if (error) {
+    alert('Erro ao realizar login: ' + error.message)
+    setLoading(false)
+    return
+  }
+
+  router.push('/dashboard')
+}
 
   return (
     <main style={{
