@@ -1,4 +1,4 @@
-# MBX LMS — Frontend
+# Olivieri LMS — Frontend
 
 Plataforma de aprendizado com área pública institucional e dashboard autenticado.
 
