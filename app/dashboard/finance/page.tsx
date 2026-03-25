@@ -76,75 +76,82 @@ export default function Finance() {
       <Sidebar />
 
       <main className="ml-20 mt-16 p-6 overflow-auto">
-        <h1 className="text-2xl mb-6">Financeiro</h1>
 
-        <table className="min-w-full text-sm">
-          <thead>
-            <tr>
-              <th className="p-2">Despesas</th>
-              {months.map((m, i) => (
-                <th key={i}>{m}-26</th>
-              ))}
-              <th>Total</th>
-            </tr>
-          </thead>
+        {/* 🔐 PROTEÇÃO POR PERMISSÃO */}
+        <PermissionGuard page="finance">
 
-          <tbody>
-            {financeStructure.map((cat, i) => (
-              <>
-                <tr key={i} className="bg-slate-700">
-                  <td className="p-2 font-bold">{cat.categoria}</td>
-                  {months.map((_, m) => (
-                    <td key={m}>
-                      {sumCategory(cat.categoria, m)}
-                    </td>
-                  ))}
-                  <td>—</td>
-                </tr>
+          <h1 className="text-2xl mb-6">Financeiro</h1>
 
-                {cat.sub.map((sub, j) => (
-                  <tr key={j}>
-                    <td className="pl-6">{sub}</td>
+          <table className="min-w-full text-sm">
+            <thead>
+              <tr>
+                <th className="p-2">Despesas</th>
+                {months.map((m, i) => (
+                  <th key={i}>{m}-26</th>
+                ))}
+                <th>Total</th>
+              </tr>
+            </thead>
 
+            <tbody>
+              {financeStructure.map((cat, i) => (
+                <>
+                  <tr key={i} className="bg-slate-700">
+                    <td className="p-2 font-bold">{cat.categoria}</td>
                     {months.map((_, m) => (
                       <td key={m}>
-                        <input
-                          className="w-20 bg-slate-800 p-1"
-                          defaultValue={getValue(cat.categoria, sub, m)}
-                          onBlur={(e) =>
-                            handleChange(cat.categoria, sub, m, e.target.value)
-                          }
-                        />
+                        {sumCategory(cat.categoria, m)}
                       </td>
                     ))}
-
-                    <td>
-                      {months.reduce(
-                        (acc, _, m) =>
-                          acc + getValue(cat.categoria, sub, m),
-                        0
-                      )}
-                    </td>
+                    <td>—</td>
                   </tr>
-                ))}
-              </>
-            ))}
-          </tbody>
 
-          <tfoot>
-            <tr className="bg-slate-800">
-              <td>Total Geral</td>
-              {months.map((_, m) => (
-                <td key={m}>
-                  {data
-                    .filter(d => d.mes === m + 1)
-                    .reduce((acc, item) => acc + Number(item.valor), 0)}
-                </td>
+                  {cat.sub.map((sub, j) => (
+                    <tr key={j}>
+                      <td className="pl-6">{sub}</td>
+
+                      {months.map((_, m) => (
+                        <td key={m}>
+                          <input
+                            className="w-20 bg-slate-800 p-1"
+                            defaultValue={getValue(cat.categoria, sub, m)}
+                            onBlur={(e) =>
+                              handleChange(cat.categoria, sub, m, e.target.value)
+                            }
+                          />
+                        </td>
+                      ))}
+
+                      <td>
+                        {months.reduce(
+                          (acc, _, m) =>
+                            acc + getValue(cat.categoria, sub, m),
+                          0
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </>
               ))}
-              <td>{sumTotalYear()}</td>
-            </tr>
-          </tfoot>
-        </table>
+            </tbody>
+
+            <tfoot>
+              <tr className="bg-slate-800">
+                <td>Total Geral</td>
+                {months.map((_, m) => (
+                  <td key={m}>
+                    {data
+                      .filter(d => d.mes === m + 1)
+                      .reduce((acc, item) => acc + Number(item.valor), 0)}
+                  </td>
+                ))}
+                <td>{sumTotalYear()}</td>
+              </tr>
+            </tfoot>
+          </table>
+
+        </PermissionGuard>
+
       </main>
     </ProtectedRoute>
   );
