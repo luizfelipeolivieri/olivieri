@@ -10,3 +10,11 @@ export async function getFinanceData(userId: string) {
 
   return data;
 }
+
+export async function upsertFinance(item: any) {
+  const { error } = await supabase
+    .from("financeiro")
+    .upsert(item, { onConflict: "id" });
+
+  if (error) throw error;
+}
