@@ -1,0 +1,13 @@
+{
+  "name": "olivieri-next",
+  "private": true,
+  "scripts": {
+    "build": "next build"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.8",
+    "next": "15.5.14",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
+  }
+}
