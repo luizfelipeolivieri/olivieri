@@ -1,8 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./*"]
     "target": "ES6",
     "lib": ["dom", "dom.iterable", "esnext"],
     "strict": true,
@@ -12,5 +9,8 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "skipLibCheck": true
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
   }
 }
