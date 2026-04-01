@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MBX LMS — Guia de Upload GitHub</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; background: #F5F4F1; color: #1A1A1A; font-size: 14px; line-height: 1.6; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 48px 24px 80px; }
+  h1 { font-size: 32px; font-weight: 800; letter-spacing: -.03em; margin-bottom: 8px; }
+  .subtitle { color: #666; font-size: 16px; margin-bottom: 48px; }
+
+  /* Phase */
+  .phase { margin-bottom: 48px; }
+  .phase-header { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 2px solid #E5E3DD; }
+  .phase-num { width: 40px; height: 40px; border-radius: 50%; background: #1A1A1A; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; flex-shrink: 0; }
+  .phase-title { font-size: 20px; font-weight: 700; letter-spacing: -.02em; }
+  .phase-sub { font-size: 13px; color: #888; }
+
+  /* Steps */
+  .steps { display: flex; flex-direction: column; gap: 16px; }
+  .step { background: #fff; border: 1px solid #E5E3DD; border-radius: 12px; padding: 20px 24px; display: flex; gap: 16px; }
+  .step-num { width: 26px; height: 26px; border-radius: 50%; background: #F0F0EB; color: #666; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .step-body { flex: 1; min-width: 0; }
+  .step-body h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .step-body p { font-size: 13px; color: #555; line-height: 1.6; }
+  .step.important { border-color: rgba(200,68,10,.3); background: #FFF8F5; }
+  .step.important .step-num { background: rgba(200,68,10,.12); color: #C8440A; }
+
+  /* Code block */
+  .code { background: #1A1A1A; color: #E8E8E8; border-radius: 8px; padding: 14px 18px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 13px; line-height: 1.7; overflow-x: auto; margin: 10px 0; }
+  .code .key { color: #79B8FF; }
+  .code .val { color: #9ECBFF; }
+  .code .cmt { color: #6A737D; }
+
+  /* File tree */
+  .tree { background: #1A1A1A; color: #E8E8E8; border-radius: 8px; padding: 18px 20px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 12.5px; line-height: 2; overflow-x: auto; margin: 10px 0; }
+  .tree .dir { color: #79B8FF; }
+  .tree .file { color: #B8CCE4; }
+  .tree .comment { color: #6A737D; font-style: italic; }
+  .tree .highlight { color: #FFE082; font-weight: 600; }
+
+  /* Table */
+  .upload-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+  .upload-table th { text-align: left; padding: 10px 14px; background: #F5F4F1; border: 1px solid #E5E3DD; font-weight: 700; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: #888; }
+  .upload-table td { padding: 10px 14px; border: 1px solid #E5E3DD; vertical-align: top; }
+  .upload-table tr:hover td { background: #FAFAF8; }
+  .commit-badge { display: inline-block; background: #EEF4FF; color: #2563EB; border-radius: 100px; padding: 2px 10px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+  .file-list { font-family: 'SF Mono', monospace; font-size: 11.5px; color: #333; line-height: 1.9; }
+
+  /* Env table */
+  .env-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 10px 0; }
+  .env-table th { background: #1A1A1A; color: #fff; text-align: left; padding: 10px 14px; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
+  .env-table td { padding: 10px 14px; border: 1px solid #E5E3DD; vertical-align: middle; }
+  .env-table .env-name { font-family: monospace; background: #F5F4F1; padding: 2px 8px; border-radius: 4px; font-size: 12px; white-space: nowrap; }
+  .env-table .env-val { font-family: monospace; font-size: 11.5px; color: #333; word-break: break-all; max-width: 400px; }
+
+  /* Callout */
+  .callout { border-radius: 10px; padding: 16px 20px; margin: 12px 0; font-size: 13px; line-height: 1.7; }
+  .callout.warn  { background: #FFF8F5; border: 1px solid rgba(200,68,10,.25); color: #7A2800; }
+  .callout.info  { background: #EEF4FF; border: 1px solid rgba(37,99,235,.2); color: #1e3a6e; }
+  .callout.ok    { background: #EDFAF3; border: 1px solid rgba(26,122,74,.2); color: #0F4A2A; }
+  .callout strong { font-weight: 700; }
+  .callout code { font-family: monospace; background: rgba(0,0,0,.07); padding: 1px 5px; border-radius: 3px; font-size: 12px; }
+
+  /* Pill */
+  .pill { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 700; }
+  .pill.green { background: #EDFAF3; color: #1A7A4A; }
+  .pill.orange { background: #FFF3EC; color: #C8530A; }
+  .pill.blue { background: #EEF4FF; color: #2563EB; }
+
+  /* Flow */
+  .flow { display: flex; align-items: center; gap: 0; flex-wrap: wrap; margin: 12px 0; }
+  .flow-item { background: #fff; border: 1px solid #E5E3DD; border-radius: 8px; padding: 10px 16px; font-size: 13px; font-weight: 600; }
+  .flow-arrow { color: #999; font-size: 18px; padding: 0 8px; }
+
+  /* TOC */
+  .toc { background: #fff; border: 1px solid #E5E3DD; border-radius: 12px; padding: 20px 24px; margin-bottom: 40px; }
+  .toc h3 { font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #888; margin-bottom: 12px; }
+  .toc-items { display: flex; flex-direction: column; gap: 6px; }
+  .toc-item { display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: #1A1A1A; text-decoration: none; }
+  .toc-item:hover { color: #333; }
+  .toc-badge { width: 22px; height: 22px; border-radius: 50%; background: #F0F0EB; color: #666; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div style="display:flex;align-items:center;gap:16px;margin-bottom:32px">
+    <svg viewBox="0 0 537 181" style="width:80px;height:auto" fill="none">
+      <path d="M94.38 73.46C94.07 73.97 93.32 73.97 93.01 73.46L47.88 0H0V180.2H53.54L52.05 90.83L92.52 154.37C93.07 155.23 94.32 155.23 94.87 154.37L135.34 90.83L133.85 180.2H187.39V0H139.51L94.38 73.46Z" fill="#1A1A1A"/>
+      <path d="M343.9 104.08C340.66 98.11 336.08 93.01 330.29 88.92L324.63 85.3L318.88 82.14L324.17 78.26C327.14 76.09 329.7 73.44 331.79 70.39L339.27 43.59C339.27 34.89 336.85 27.19 332.08 20.71L332.04 20.66C327.43 14.18 320.52 9.08 311.48 5.5C304.9 2.84 297.13 1.15 288.28 0.46C285.6 0.25 282.82 0.13 279.95 0.1H195.63V180.28H263.17L347.34 112.83C346.53 109.73 345.38 106.81 343.9 104.08ZM247.11 43.85H268.48C274.63 43.85 279.05 45.15 281.61 47.71C285.73 53.3 285.73 57.23 285.73 57.23C285.73 62.65 283.92 64.7 283.92 64.7C282.89 66.59 281.08 68.06 278.52 69.07C276.13 70.1 272.92 70.62 268.99 70.62H247.11V43.85ZM292.98 129.75C291.73 132.03 290.07 133.71 287.95 134.89L287.62 135.05C285.42 136.02 282.71 136.52 279.55 136.52H247.11V107.69H278.26C281.85 107.69 284.88 108.29 287.27 109.49H287.29C289.66 110.52 291.48 112.07 292.68 114.12C294.74 121.33 294.74 121.33 292.98 129.75Z" fill="#1A1A1A"/>
+      <path d="M338.54 15.99C344.33 23.87 347.27 33.16 347.27 43.59L382.14 85.06L438.39 39.98L410.16 0.09H319.05C322.44 1.73 325.55 3.6 328.35 5.68C332.38 8.68 335.78 12.12 338.54 15.99Z" fill="#1A1A1A"/>
+      <path d="M535.97 177.87L478.82 97.11L449.27 138.86L500.95 180.27H535.97V177.87Z" fill="#1A1A1A"/>
+      <path d="M535.38 0.09H500.95L443.02 46.52L388.53 90.18L279.19 177.8C278.17 178.63 278.75 180.28 280.06 180.28H410.16L443.02 133.85L473.92 90.18L535.97 2.49C536.27 1.56 536.16 1.09 535.38 0.09Z" fill="#1A1A1A"/>
+    </svg>
+    <div>
+      <h1>Guia de Upload — GitHub</h1>
+      <p class="subtitle" style="margin-bottom:0">MBX LMS · Next.js + Supabase + Vercel · Sem terminal</p>
+    </div>
+  </div>
+
+  <!-- TOC -->
+  <div class="toc">
+    <h3>Índice</h3>
+    <div class="toc-items">
+      <a href="#fase1" class="toc-item"><span class="toc-badge">1</span> Supabase — Rodar a Migration SQL</a>
+      <a href="#fase2" class="toc-item"><span class="toc-badge">2</span> GitHub — Criar repositório e fazer upload</a>
+      <a href="#fase3" class="toc-item"><span class="toc-badge">3</span> Vercel — Deploy automático</a>
+      <a href="#fase4" class="toc-item"><span class="toc-badge">4</span> Supabase — Configurar URLs de Auth</a>
+      <a href="#fase5" class="toc-item"><span class="toc-badge">5</span> Verificar funcionamento</a>
+    </div>
+  </div>
+
+  <!-- FASE 1 -->
+  <div class="phase" id="fase1">
+    <div class="phase-header">
+      <div class="phase-num">1</div>
+      <div>
+        <div class="phase-title">Supabase — Rodar a Migration SQL</div>
+        <div class="phase-sub">Cria as 10 tabelas do banco com Row Level Security</div>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Acesse seu projeto Supabase</h4>
+          <p>Vá em <strong>supabase.com</strong> → faça login → clique no projeto <code style="font-family:monospace;background:#F0F0EB;padding:2px 6px;border-radius:3px">zgstzbthnzrygxgaleqm</code></p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Abra o SQL Editor</h4>
+          <p>No menu lateral esquerdo, clique em <strong>SQL Editor</strong> → depois em <strong>New Query</strong></p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>Cole e execute a migration</h4>
+          <p>Abra o arquivo <code style="font-family:monospace;background:#F0F0EB;padding:2px 6px;border-radius:3px">supabase/migrations/001_initial_schema.sql</code>, copie todo o conteúdo, cole no editor e clique em <strong>Run</strong> (ou Ctrl+Enter).</p>
+          <div class="callout ok" style="margin-top:10px">✓ Resultado esperado: <strong>"Success. No rows returned"</strong> — isso é normal, significa que todas as tabelas foram criadas.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h4>Confirme as tabelas criadas</h4>
+          <p>Vá em <strong>Table Editor</strong> no menu lateral. Você deve ver 10 tabelas:</p>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+            <span class="pill blue">profiles</span><span class="pill blue">courses</span><span class="pill blue">enrollments</span><span class="pill blue">classes</span><span class="pill blue">class_progress</span><span class="pill blue">payments</span><span class="pill blue">exams</span><span class="pill blue">exam_results</span><span class="pill blue">ebooks</span><span class="pill blue">referrals</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FASE 2 -->
+  <div class="phase" id="fase2">
+    <div class="phase-header">
+      <div class="phase-num">2</div>
+      <div>
+        <div class="phase-title">GitHub — Criar repositório e fazer upload</div>
+        <div class="phase-sub">Upload manual de todos os arquivos respeitando a estrutura de pastas</div>
+      </div>
+    </div>
+
+    <div class="callout warn" style="margin-bottom:16px">
+      <strong>⚠️ Como o GitHub funciona para upload manual:</strong> O GitHub não cria pastas automaticamente. Para criar a estrutura de pastas, você precisa <strong>incluir o caminho completo no nome do arquivo</strong> ao fazer upload. Ex: ao criar um arquivo em src/app/, você digita <code>src/app/page.tsx</code> no campo de nome.
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Criar o repositório</h4>
+          <p>Acesse <strong>github.com</strong> → clique em <strong>New repository</strong> (botão verde "+" no canto superior direito) → Nome: <code style="font-family:monospace;background:#F0F0EB;padding:2px 6px;border-radius:3px">mbx-lms</code> → <strong>Public</strong> → <strong>Create repository</strong></p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Método de upload recomendado</h4>
+          <p>Na página do repositório vazio, clique em <strong>"creating a new file"</strong>. Para cada arquivo, você vai:</p>
+          <p style="margin-top:8px">① Digitar o caminho completo no campo de nome (ex: <code style="font-family:monospace;font-size:12px;background:#F0F0EB;padding:2px 5px;border-radius:3px">src/app/page.tsx</code>)<br>② Colar o conteúdo do arquivo na área de texto<br>③ Clicar em <strong>Commit changes</strong></p>
+          <div class="callout info" style="margin-top:10px">💡 <strong>Dica:</strong> Para criar pastas, basta incluir o caminho no nome do arquivo. Ao digitar <code>src/app/page.tsx</code> e pressionar <code>/</code>, o GitHub cria automaticamente as pastas <code>src/</code> e <code>src/app/</code>.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;margin-bottom:12px;font-size:15px;font-weight:700">Ordem de upload — faça nessa sequência:</div>
+
+    <table class="upload-table">
+      <thead>
+        <tr><th>#</th><th>Commit / Descrição</th><th>Arquivos a criar no GitHub</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="commit-badge">1</span></td>
+          <td><strong>Config raiz</strong></td>
+          <td class="file-list">
+            package.json<br>
+            tsconfig.json<br>
+            next.config.ts<br>
+            tailwind.config.ts<br>
+            postcss.config.mjs<br>
+            eslint.config.mjs<br>
+            vercel.json<br>
+            next-env.d.ts<br>
+            .gitignore<br>
+            .env.example
+          </td>
+        </tr>
+        <tr>
+          <td><span class="commit-badge">2</span></td>
+          <td><strong>App base</strong></td>
+          <td class="file-list">
+            src/app/globals.css<br>
+            src/app/layout.tsx
+          </td>
+        </tr>
+        <tr>
+          <td><span class="commit-badge">3</span></td>
+          <td><strong>Supabase lib</strong></td>
+          <td class="file-list">
+            src/lib/supabase/client.ts<br>
+            src/lib/supabase/server.ts<br>
+            src/types/database.ts<br>
+            src/middleware.ts
+          </td>
+        </tr>
+        <tr>
+          <td><span class="commit-badge">4</span></td>
+          <td><strong>Componentes</strong></td>
+          <td class="file-list">
+            src/components/MbxLogo.tsx<br>
+            src/components/LoginModal.tsx<br>
+            src/components/Sidebar.tsx<br>
+            src/components/Topbar.tsx
+          </td>
+        </tr>
+        <tr>
+          <td><span class="commit-badge">5</span></td>
+          <td><strong>Home pública</strong></td>
+          <td class="file-list">
+            src/app/page.tsx
+          </td>
+        </tr>
+        <tr>
+          <td><span class="commit-badge">6</span></td>
+          <td><strong>Dashboard core</strong></td>
+          <td class="file-list">
+            src/app/dashboard/layout.tsx<br>
+            src/app/dashboard/page.tsx
+          </td>
+        </tr>
+        <tr>
+          <td><span class="commit-badge">7</span></td>
+          <td><strong>Dashboard páginas</strong></td>
+          <td class="file-list">
+            src/app/dashboard/calendario/page.tsx<br>
+            src/app/dashboard/aulas/page.tsx<br>
+            src/app/dashboard/avaliacoes/page.tsx<br>
+            src/app/dashboard/cursos/page.tsx<br>
+            src/app/dashboard/financeiro/page.tsx<br>
+            src/app/dashboard/serie/page.tsx<br>
+            src/app/dashboard/biblioteca/page.tsx<br>
+            src/app/dashboard/indicacao/page.tsx
+          </td>
+        </tr>
+        <tr>
+          <td><span class="commit-badge">8</span></td>
+          <td><strong>SQL Migration</strong></td>
+          <td class="file-list">
+            supabase/migrations/001_initial_schema.sql
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout warn" style="margin-top:16px">
+      <strong>⚠️ NÃO faça upload do arquivo <code>.env.local</code></strong> — ele contém credenciais e está no .gitignore. As credenciais do Supabase vão ser configuradas no Vercel no Passo 3.
+    </div>
+  </div>
+
+  <!-- FASE 3 -->
+  <div class="phase" id="fase3">
+    <div class="phase-header">
+      <div class="phase-num">3</div>
+      <div>
+        <div class="phase-title">Vercel — Deploy automático pelo GitHub</div>
+        <div class="phase-sub">Conecta o repositório e configura as variáveis de ambiente</div>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Importar projeto no Vercel</h4>
+          <p>Acesse <strong>vercel.com</strong> → faça login (recomendado: "Continue with GitHub") → clique em <strong>Add New Project</strong> → selecione o repositório <code style="font-family:monospace;background:#F0F0EB;padding:2px 6px;border-radius:3px">mbx-lms</code> → clique em <strong>Import</strong></p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Framework e configuração</h4>
+          <p>O Vercel detecta automaticamente o <strong>Next.js</strong>. Não mude nada em "Build and Output Settings" — o <code style="font-family:monospace;background:#F0F0EB;padding:2px 6px;border-radius:3px">vercel.json</code> já configura tudo.</p>
+        </div>
+      </div>
+      <div class="step important">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>⚠️ Configurar variáveis de ambiente — OBRIGATÓRIO</h4>
+          <p>Antes de clicar em Deploy, expanda <strong>"Environment Variables"</strong> e adicione as 3 variáveis abaixo:</p>
+          <table class="env-table" style="margin-top:12px">
+            <thead><tr><th>Nome</th><th>Valor</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><span class="env-name">NEXT_PUBLIC_SUPABASE_URL</span></td>
+                <td><span class="env-val">https://zgstzbthnzrygxgaleqm.supabase.co</span></td>
+              </tr>
+              <tr>
+                <td><span class="env-name">NEXT_PUBLIC_SUPABASE_ANON_KEY</span></td>
+                <td><span class="env-val">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpnc3R6YnRobnpyeWd4Z2FsZXFtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwNDAwOTUsImV4cCI6MjA4OTYxNjA5NX0.VuPCZvb44xx1BtkQYCZqmEMy1WNfnAKf8QPhMLsjWBQ</span></td>
+              </tr>
+              <tr>
+                <td><span class="env-name">NEXT_PUBLIC_SITE_URL</span></td>
+                <td><span class="env-val">https://mbx-lms.vercel.app <span style="color:#888">(ajuste depois com sua URL real)</span></span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h4>Fazer o Deploy</h4>
+          <p>Clique em <strong>Deploy</strong>. O Vercel vai instalar as dependências e fazer o build. Aguarde ~2 minutos. Ao final, você verá a URL do projeto (ex: <code style="font-family:monospace;background:#F0F0EB;padding:2px 6px;border-radius:3px">mbx-lms-xyz.vercel.app</code>).</p>
+          <div class="callout ok" style="margin-top:10px">🎉 Deploy bem-sucedido quando aparecer <strong>"Congratulations!"</strong> com a URL do projeto.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FASE 4 -->
+  <div class="phase" id="fase4">
+    <div class="phase-header">
+      <div class="phase-num">4</div>
+      <div>
+        <div class="phase-title">Supabase — Configurar URLs de Auth</div>
+        <div class="phase-sub">Necessário para o login funcionar em produção</div>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Abra as configurações de Auth</h4>
+          <p>No Supabase, vá em <strong>Authentication</strong> (menu lateral) → <strong>URL Configuration</strong></p>
+        </div>
+      </div>
+      <div class="step important">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Configure Site URL e Redirect URLs</h4>
+          <p>Copie a URL gerada pelo Vercel e configure:</p>
+          <div class="code" style="margin-top:10px">
+            <span class="cmt"># Site URL (URL principal do seu projeto no Vercel)</span><br>
+            <span class="key">Site URL:</span> <span class="val">https://mbx-lms-SEU-HASH.vercel.app</span><br><br>
+            <span class="cmt"># Redirect URLs (adicionar as duas)</span><br>
+            <span class="key">Redirect URLs:</span><br>
+            &nbsp;&nbsp;<span class="val">https://mbx-lms-SEU-HASH.vercel.app/**</span><br>
+            &nbsp;&nbsp;<span class="val">http://localhost:3000/**</span> <span class="cmt">(para dev local)</span>
+          </div>
+          <p style="margin-top:8px">Clique em <strong>Save</strong>.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>Atualizar NEXT_PUBLIC_SITE_URL no Vercel</h4>
+          <p>No Vercel, vá em <strong>Project Settings → Environment Variables</strong> → edite <code style="font-family:monospace;background:#F0F0EB;padding:2px 6px;border-radius:3px">NEXT_PUBLIC_SITE_URL</code> com a URL real → <strong>Save</strong> → vá em <strong>Deployments</strong> → clique em <strong>Redeploy</strong> no último deploy.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FASE 5 -->
+  <div class="phase" id="fase5">
+    <div class="phase-header">
+      <div class="phase-num">5</div>
+      <div>
+        <div class="phase-title">Verificar funcionamento</div>
+        <div class="phase-sub">Teste o fluxo completo de autenticação</div>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Criar primeiro usuário</h4>
+          <p>Acesse sua URL do Vercel → clique em <strong>Entrar</strong> → aba <strong>Criar conta</strong> → preencha nome, email e senha → clique em <strong>Criar conta</strong>.<br>
+          Verifique o email para confirmar o cadastro (verifique o spam).</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Confirmar no Supabase</h4>
+          <p>No Supabase → <strong>Authentication → Users</strong> → seu usuário deve aparecer na lista com status <strong>confirmed</strong>. Na <strong>Table Editor → profiles</strong> → seu perfil foi criado automaticamente pelo trigger.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>Testar o fluxo completo</h4>
+          <div class="flow" style="margin-top:8px">
+            <div class="flow-item">/ (home)</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-item">Entrar</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-item">Login</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-item">/dashboard</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-item">Sidebar</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-item">Páginas</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-item">Logout → /</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout ok" style="margin-top:20px">
+      <strong>✓ Tudo funcionando quando:</strong><br>
+      • A home abre sem redirecionar<br>
+      • O modal de login abre ao clicar em "Entrar"<br>
+      • Após login, redireciona para <code>/dashboard</code><br>
+      • A sidebar mostra todos os ícones com tooltips<br>
+      • Cada ícone abre a página correta na URL<br>
+      • Ao acessar <code>/dashboard</code> sem login, redireciona para <code>/?login=1</code> com modal aberto<br>
+      • Logout volta para a home
+    </div>
+  </div>
+
+  <!-- Estrutura final -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num" style="background:#2563EB">📁</div>
+      <div>
+        <div class="phase-title">Estrutura completa do repositório</div>
+        <div class="phase-sub">34 arquivos · Next.js 15 · TypeScript · Tailwind CSS 3</div>
+      </div>
+    </div>
+    <div class="tree">
+<span class="dir">mbx-lms/</span>
+├── <span class="highlight">package.json</span>              <span class="comment">deps: next, supabase, react</span>
+├── <span class="highlight">tsconfig.json</span>
+├── <span class="highlight">tailwind.config.ts</span>
+├── <span class="highlight">next.config.ts</span>
+├── <span class="highlight">postcss.config.mjs</span>
+├── <span class="highlight">eslint.config.mjs</span>
+├── <span class="highlight">vercel.json</span>               <span class="comment">build config para Vercel</span>
+├── <span class="highlight">next-env.d.ts</span>
+├── <span class="highlight">.gitignore</span>                <span class="comment">inclui .env.local</span>
+├── <span class="highlight">.env.example</span>              <span class="comment">template das variáveis (sem segredos)</span>
+│
+├── <span class="dir">src/</span>
+│   ├── <span class="highlight">middleware.ts</span>             <span class="comment">protege /dashboard/*</span>
+│   │
+│   ├── <span class="dir">types/</span>
+│   │   └── <span class="file">database.ts</span>           <span class="comment">tipos TypeScript do Supabase</span>
+│   │
+│   ├── <span class="dir">lib/supabase/</span>
+│   │   ├── <span class="file">client.ts</span>             <span class="comment">Supabase browser client</span>
+│   │   └── <span class="file">server.ts</span>             <span class="comment">Supabase server client (SSR)</span>
+│   │
+│   ├── <span class="dir">components/</span>
+│   │   ├── <span class="file">MbxLogo.tsx</span>           <span class="comment">logo SVG reutilizável</span>
+│   │   ├── <span class="file">LoginModal.tsx</span>        <span class="comment">modal login + cadastro</span>
+│   │   ├── <span class="file">Sidebar.tsx</span>           <span class="comment">sidebar com ícones + tooltips</span>
+│   │   └── <span class="file">Topbar.tsx</span>            <span class="comment">topbar + notificações + perfil</span>
+│   │
+│   └── <span class="dir">app/</span>
+│       ├── <span class="file">globals.css</span>           <span class="comment">CSS vars + Tailwind</span>
+│       ├── <span class="file">layout.tsx</span>            <span class="comment">root layout</span>
+│       ├── <span class="highlight">page.tsx</span>              <span class="comment">/ → site institucional</span>
+│       │
+│       └── <span class="dir">dashboard/</span>
+│           ├── <span class="highlight">layout.tsx</span>          <span class="comment">valida sessão + monta chrome</span>
+│           ├── <span class="highlight">page.tsx</span>            <span class="comment">/dashboard (Início — visual MBX)</span>
+│           ├── <span class="dir">calendario/</span>
+│           │   └── <span class="file">page.tsx</span>        <span class="comment">/dashboard/calendario</span>
+│           ├── <span class="dir">aulas/</span>
+│           │   └── <span class="file">page.tsx</span>        <span class="comment">/dashboard/aulas</span>
+│           ├── <span class="dir">avaliacoes/</span>
+│           │   └── <span class="file">page.tsx</span>        <span class="comment">/dashboard/avaliacoes</span>
+│           ├── <span class="dir">cursos/</span>
+│           │   └── <span class="file">page.tsx</span>        <span class="comment">/dashboard/cursos</span>
+│           ├── <span class="dir">financeiro/</span>
+│           │   └── <span class="file">page.tsx</span>        <span class="comment">/dashboard/financeiro</span>
+│           ├── <span class="dir">serie/</span>
+│           │   └── <span class="file">page.tsx</span>        <span class="comment">/dashboard/serie</span>
+│           ├── <span class="dir">biblioteca/</span>
+│           │   └── <span class="file">page.tsx</span>        <span class="comment">/dashboard/biblioteca</span>
+│           └── <span class="dir">indicacao/</span>
+│               └── <span class="file">page.tsx</span>        <span class="comment">/dashboard/indicacao</span>
+│
+└── <span class="dir">supabase/migrations/</span>
+    └── <span class="highlight">001_initial_schema.sql</span>    <span class="comment">10 tabelas + RLS + triggers + seed</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
