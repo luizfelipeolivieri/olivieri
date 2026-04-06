@@ -6,6 +6,7 @@
   <title>Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -15,7 +16,6 @@
       --surface2: #1c2128;
       --border: #30363d;
       --accent: #58a6ff;
-      --accent-hover: #79bcff;
       --text: #e6edf3;
       --muted: #8b949e;
       --nav-h: 56px;
@@ -31,230 +31,128 @@
 
     /* ── TOP NAV ── */
     nav.topbar {
-      position: fixed;
-      top: 0; left: 0; right: 0;
+      position: fixed; top: 0; left: 0; right: 0;
       height: var(--nav-h);
-      background: rgba(22, 27, 34, 0.9);
+      background: rgba(22,27,34,0.92);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 24px;
-      z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px; z-index: 200;
     }
-    /* hamburger */
+
     .btn-sidebar-toggle {
-      display: inline-flex;
-      flex-shrink: 0;
-      align-items: center;
-      justify-content: center;
-      width: 36px; height: 36px;
-      background: transparent;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--muted);
-      cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center;
+      flex-shrink: 0; width: 36px; height: 36px;
+      background: transparent; border: 1px solid var(--border); border-radius: 8px;
+      color: var(--muted); cursor: pointer;
       transition: background 0.15s, color 0.15s, border-color 0.15s;
     }
-    .btn-sidebar-toggle:hover {
-      background: var(--surface2);
-      color: var(--text);
-      border-color: var(--text);
-    }
-    .btn-sidebar-toggle svg { width: 18px; height: 18px; }
+    .btn-sidebar-toggle:hover { background: var(--surface2); color: var(--text); border-color: var(--text); }
+    .btn-sidebar-toggle svg  { width: 18px; height: 18px; }
 
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
 
-    /* avatar-only user icon */
     .user-avatar-btn {
-      position: relative;
-      width: 34px; height: 34px;
-      background: var(--accent);
-      border: none;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Sora', sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      color: #0d1117;
-      cursor: pointer;
+      position: relative; width: 34px; height: 34px;
+      background: var(--accent); border: none; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 700;
+      color: #0d1117; cursor: pointer;
       transition: transform 0.15s, box-shadow 0.15s;
     }
-    .user-avatar-btn:hover {
-      transform: scale(1.07);
-      box-shadow: 0 0 0 3px rgba(88,166,255,0.3);
-    }
-
-    /* tooltip on hover */
+    .user-avatar-btn:hover { transform: scale(1.07); box-shadow: 0 0 0 3px rgba(88,166,255,0.3); }
     .user-avatar-btn::after {
       content: attr(data-email);
-      position: absolute;
-      top: calc(100% + 8px);
-      right: 0;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 6px 12px;
-      font-size: 12px;
-      font-weight: 400;
-      color: var(--text);
-      white-space: nowrap;
-      pointer-events: none;
-      opacity: 0;
-      transform: translateY(-4px);
-      transition: opacity 0.15s, transform 0.15s;
-      z-index: 300;
+      position: absolute; top: calc(100% + 8px); right: 0;
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 8px;
+      padding: 6px 12px; font-size: 12px; font-weight: 400; color: var(--text);
+      white-space: nowrap; pointer-events: none;
+      opacity: 0; transform: translateY(-4px);
+      transition: opacity 0.15s, transform 0.15s; z-index: 300;
     }
-    .user-avatar-btn:hover::after {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .user-avatar-btn:hover::after { opacity: 1; transform: translateY(0); }
 
     .btn-logout {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      font-family: 'Sora', sans-serif;
-      font-size: 13px;
-      padding: 6px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: color 0.2s, border-color 0.2s;
+      background: transparent; border: 1px solid var(--border); color: var(--muted);
+      font-family: 'Sora', sans-serif; font-size: 13px; padding: 6px 14px;
+      border-radius: 8px; cursor: pointer; transition: color 0.2s, border-color 0.2s;
     }
     .btn-logout:hover { color: var(--text); border-color: var(--text); }
 
     /* ── SIDEBAR ── */
     aside.sidebar {
-      position: fixed;
-      top: var(--nav-h);
-      left: 0;
-      bottom: 0;
+      position: fixed; top: var(--nav-h); left: 0; bottom: 0;
       width: var(--sidebar-w);
-      background: var(--surface);
-      border-right: 1px solid var(--border);
-      padding: 20px 12px;
-      overflow-y: auto;
-      overflow-x: hidden;
-      z-index: 100;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      animation: slideIn 0.3s ease both;
-      transition: width 0.25s ease;
+      background: var(--surface); border-right: 1px solid var(--border);
+      padding: 16px 10px; overflow-y: auto; overflow-x: hidden;
+      z-index: 100; display: flex; flex-direction: column; gap: 2px;
+      animation: slideIn 0.3s ease both; transition: width 0.25s ease;
     }
-    /* collapsed state */
-    aside.sidebar.collapsed {
-      width: 56px;
-      padding: 20px 8px;
-    }
-    aside.sidebar.collapsed .label,
-    aside.sidebar.collapsed .sidebar-section { display: none; }
+    aside.sidebar.collapsed { width: 56px; padding: 16px 8px; }
+    aside.sidebar.collapsed .label { display: none; }
     aside.sidebar.collapsed .nav-item { justify-content: center; padding: 9px 0; }
     main.content { transition: margin-left 0.25s ease; }
+
     @keyframes slideIn {
       from { opacity: 0; transform: translateX(-16px); }
       to   { opacity: 1; transform: translateX(0); }
     }
 
-    .sidebar-section {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      color: var(--muted);
-      padding: 14px 10px 6px;
-      margin-top: 4px;
-    }
-    .sidebar-section:first-child { padding-top: 0; }
-
     .nav-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 9px 10px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--muted);
-      cursor: pointer;
-      transition: background 0.15s, color 0.15s;
-      text-decoration: none;
-      user-select: none;
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 10px; border-radius: 8px;
+      font-size: 14px; font-weight: 500; color: var(--muted);
+      cursor: pointer; transition: background 0.15s, color 0.15s;
+      text-decoration: none; user-select: none;
     }
-    .nav-item:hover { background: var(--surface2); color: var(--text); }
+    .nav-item:hover  { background: var(--surface2); color: var(--text); }
     .nav-item.active { background: rgba(88,166,255,0.1); color: var(--accent); }
     .nav-item .icon {
-      font-size: 16px;
-      width: 20px;
-      text-align: center;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; width: 20px; height: 20px;
     }
+    .nav-item .icon svg { width: 18px; height: 18px; }
 
     /* ── CONTENT ── */
     main.content {
-      margin-top: var(--nav-h);
-      margin-left: var(--sidebar-w);
+      margin-top: var(--nav-h); margin-left: var(--sidebar-w);
       min-height: calc(100vh - var(--nav-h));
-      padding: 32px;
-      animation: fadeIn 0.4s ease both;
+      padding: 28px 32px; animation: fadeIn 0.4s ease both;
     }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(12px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    .page-title {
-      font-size: 24px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      margin-bottom: 8px;
-    }
-    .page-sub {
-      color: var(--muted);
-      font-size: 14px;
-      margin-bottom: 32px;
-    }
+    .page-title { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 4px; }
+    .page-sub   { color: var(--muted); font-size: 13px; margin-bottom: 28px; }
 
-    /* Cards de stats */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 16px;
-      margin-bottom: 32px;
+    /* ── CHART CARDS ── */
+    .chart-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 22px 24px; margin-bottom: 20px;
     }
-    .stat-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
-      transition: border-color 0.2s;
+    .chart-card h3 {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.8px;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 18px;
     }
-    .stat-card:hover { border-color: var(--accent); }
-    .stat-label { font-size: 12px; color: var(--muted); margin-bottom: 8px; font-weight: 500; }
-    .stat-value { font-size: 28px; font-weight: 700; letter-spacing: -1px; }
-    .stat-hint  { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .line-wrap   { position: relative; height: 280px; }
+    .donuts-row  { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .donuts-row .chart-card { margin-bottom: 0; }
+    .donut-wrap  { position: relative; height: 220px; }
 
-    /* Área de boas-vindas */
+    /* Em construção */
     .welcome-box {
-      background: linear-gradient(135deg, rgba(88,166,255,0.08), rgba(88,166,255,0.02));
-      border: 1px solid rgba(88,166,255,0.2);
-      border-radius: 14px;
-      padding: 28px;
+      background: linear-gradient(135deg,rgba(88,166,255,0.08),rgba(88,166,255,0.02));
+      border: 1px solid rgba(88,166,255,0.2); border-radius: 14px; padding: 28px;
     }
     .welcome-box h2 { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
     .welcome-box p  { color: var(--muted); font-size: 14px; line-height: 1.6; }
 
-    /* Responsivo */
+    @media (max-width: 768px) { .donuts-row { grid-template-columns: 1fr; } }
     @media (max-width: 640px) {
-      aside.sidebar { width: 56px; padding: 20px 8px; }
-      aside.sidebar .label,
-      aside.sidebar .sidebar-section { display: none; }
+      aside.sidebar { width: 56px; padding: 16px 8px; }
+      aside.sidebar .label { display: none; }
       aside.sidebar .nav-item { justify-content: center; padding: 9px 0; }
       main.content { margin-left: 56px; padding: 20px; }
     }
@@ -264,49 +162,53 @@
 
   <!-- TOP NAVBAR -->
   <nav class="topbar">
-    <button class="btn-sidebar-toggle" id="sidebarToggle" aria-label="Controlar sidebar" type="button" onclick="toggleSidebar()">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+    <button class="btn-sidebar-toggle" aria-label="Controlar sidebar" type="button" onclick="toggleSidebar()">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
       </svg>
     </button>
     <div class="nav-right">
-      <button class="user-avatar-btn" id="userAvatar" data-email="carregando…" title="">?</button>
+      <button class="user-avatar-btn" id="userAvatar" data-email="carregando…">?</button>
       <button class="btn-logout" onclick="handleLogout()">Sair</button>
     </div>
   </nav>
 
   <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
+
     <a class="nav-item active" onclick="showPage('inicio')">
-      <span class="icon">🏠</span>
+      <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955a1.126 1.126 0 0 1 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/></svg></span>
       <span class="label">Início</span>
     </a>
+
     <a class="nav-item" onclick="showPage('calendario')">
-      <span class="icon">📅</span>
+      <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg></span>
       <span class="label">Calendário</span>
     </a>
+
     <a class="nav-item" onclick="showPage('mercado')">
-      <span class="icon">🛒</span>
+      <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"/></svg></span>
       <span class="label">Mercado</span>
     </a>
+
     <a class="nav-item" onclick="showPage('cursos')">
-      <span class="icon">🎓</span>
+      <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 3.741-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"/></svg></span>
       <span class="label">Meus Cursos</span>
     </a>
+
     <a class="nav-item" onclick="showPage('financeiro')">
-      <span class="icon">💰</span>
+      <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg></span>
       <span class="label">Financeiro</span>
     </a>
+
     <a class="nav-item" onclick="showPage('biblioteca')">
-      <span class="icon">📚</span>
+      <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/></svg></span>
       <span class="label">Biblioteca Digital</span>
     </a>
+
   </aside>
 
-  <!-- MAIN CONTENT -->
-  <main class="content" id="mainContent">
-    <!-- preenchido pelo JS -->
-  </main>
+  <main class="content" id="mainContent"></main>
 
   <script>
     const { createClient } = supabase;
@@ -315,20 +217,16 @@
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpnc3R6YnRobnpyeWd4Z2FsZXFtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwNDAwOTUsImV4cCI6MjA4OTYxNjA5NX0.VuPCZvb44xx1BtkQYCZqmEMy1WNfnAKf8QPhMLsjWBQ'
     );
 
-    // --- Auth guard ---
+    // ── Auth guard ──
     let currentUser = null;
-
     (async () => {
       const { data: { session } } = await sb.auth.getSession();
-      if (!session) {
-        window.location.href = 'index.html';
-        return;
-      }
+      if (!session) { window.location.href = 'index.html'; return; }
       currentUser = session.user;
       const email = currentUser.email;
-      const avatarBtn = document.getElementById('userAvatar');
-      avatarBtn.textContent = email[0].toUpperCase();
-      avatarBtn.setAttribute('data-email', email);
+      const btn   = document.getElementById('userAvatar');
+      btn.textContent = email[0].toUpperCase();
+      btn.setAttribute('data-email', email);
       showPage('inicio');
     })();
 
@@ -337,7 +235,7 @@
       window.location.href = 'index.html';
     }
 
-    // --- Sidebar toggle ---
+    // ── Sidebar toggle ──
     function toggleSidebar() {
       const sidebar = document.getElementById('sidebar');
       const content = document.getElementById('mainContent');
@@ -345,51 +243,131 @@
       content.style.marginLeft = sidebar.classList.contains('collapsed') ? '56px' : 'var(--sidebar-w)';
     }
 
-    // --- Navegação ---
-    function showPage(page) {
-      const pages = {
-        inicio: `
-          <p class="page-title">Início</p>
-          <p class="page-sub">Bem-vindo ao seu painel de controle.</p>
-          <div class="stats-grid">
-            <div class="stat-card">
-              <div class="stat-label">Usuários</div>
-              <div class="stat-value">128</div>
-              <div class="stat-hint">+12 este mês</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-label">Projetos</div>
-              <div class="stat-value">34</div>
-              <div class="stat-hint">3 em andamento</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-label">Tarefas</div>
-              <div class="stat-value">91</div>
-              <div class="stat-hint">17 pendentes</div>
-            </div>
-          </div>
-          <div class="welcome-box">
-            <h2>Tudo certo por aqui ✨</h2>
-            <p>Este é o seu dashboard. Use o menu lateral para navegar entre as seções.<br>
-               Personalize esta área com seus componentes e dados.</p>
-          </div>
-        `,
-        calendario: `<p class="page-title">Calendário</p><p class="page-sub">Gerencie seus eventos e agenda.</p><div class="welcome-box"><h2>Em construção 🔧</h2><p>Esta seção ainda será configurada.</p></div>`,
-        mercado:    `<p class="page-title">Mercado</p><p class="page-sub">Explore produtos e serviços.</p><div class="welcome-box"><h2>Em construção 🔧</h2><p>Esta seção ainda será configurada.</p></div>`,
-        cursos:     `<p class="page-title">Meus Cursos</p><p class="page-sub">Acompanhe seu progresso nos cursos.</p><div class="welcome-box"><h2>Em construção 🔧</h2><p>Esta seção ainda será configurada.</p></div>`,
-        financeiro: `<p class="page-title">Financeiro</p><p class="page-sub">Acompanhe suas finanças.</p><div class="welcome-box"><h2>Em construção 🔧</h2><p>Esta seção ainda será configurada.</p></div>`,
-        biblioteca: `<p class="page-title">Biblioteca Digital</p><p class="page-sub">Acesse seus materiais e conteúdos.</p><div class="welcome-box"><h2>Em construção 🔧</h2><p>Esta seção ainda será configurada.</p></div>`,
-      };
-      document.getElementById('mainContent').innerHTML = pages[page] || '<p>Página não encontrada.</p>';
-    }
-
-    // Marca o item clicado como ativo
+    // ── Nav active state ──
     document.querySelectorAll('.nav-item').forEach(item => {
-      item.addEventListener('click', function() {
+      item.addEventListener('click', function () {
         document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
         this.classList.add('active');
       });
     });
+
+    // ── Page HTML ──
+    const pageHTML = {
+      inicio: `
+        <p class="page-title">Início</p>
+        <p class="page-sub">Resumo financeiro do ano</p>
+        <div class="chart-card">
+          <h3>Receita × Despesas — 2025</h3>
+          <div class="line-wrap"><canvas id="lineChart"></canvas></div>
+        </div>
+        <div class="donuts-row">
+          <div class="chart-card">
+            <h3>Gastos do Mês — por categoria</h3>
+            <div class="donut-wrap"><canvas id="donutMes"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <h3>Gastos do Ano — por categoria</h3>
+            <div class="donut-wrap"><canvas id="donutAno"></canvas></div>
+          </div>
+        </div>`,
+      calendario: `<p class="page-title">Calendário</p><p class="page-sub">Gerencie seus eventos e agenda.</p><div class="welcome-box"><h2>Em construção 🔧</h2><p>Esta seção ainda será configurada.</p></div>`,
+      mercado:    `<p class="page-title">Mercado</p><p class="page-sub">Explore produtos e serviços.</p><div class="welcome-box"><h2>Em construção 🔧</h2><p>Esta seção ainda será configurada.</p></div>`,
+      cursos:     `<p class="page-title">Meus Cursos</p><p class="page-sub">Acompanhe seu progresso nos cursos.</p><div class="welcome-box"><h2>Em construção 🔧</h2><p>Esta seção ainda será configurada.</p></div>`,
+      financeiro: `<p class="page-title">Financeiro</p><p class="page-sub">Acompanhe suas finanças.</p><div class="welcome-box"><h2>Em construção 🔧</h2><p>Esta seção ainda será configurada.</p></div>`,
+      biblioteca: `<p class="page-title">Biblioteca Digital</p><p class="page-sub">Acesse seus materiais e conteúdos.</p><div class="welcome-box"><h2>Em construção 🔧</h2><p>Esta seção ainda será configurada.</p></div>`,
+    };
+
+    let chartInstances = [];
+    function destroyCharts() { chartInstances.forEach(c => c.destroy()); chartInstances = []; }
+
+    function showPage(page) {
+      destroyCharts();
+      document.getElementById('mainContent').innerHTML = pageHTML[page] || '<p>Página não encontrada.</p>';
+      if (page === 'inicio') renderCharts();
+    }
+
+    // ── Chart.js ──
+    Chart.defaults.font.family = 'Sora';
+    Chart.defaults.color       = '#8b949e';
+
+    const MONTHS = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+    const CATEGORIES = ['Alimentação','Moradia','Educação','Saúde','Transporte','Lazer','Pessoal'];
+    const CAT_COLORS = ['#58a6ff','#3fb950','#d2a8ff','#ff7b72','#ffa657','#79c0ff','#f0883e'];
+
+    function renderCharts() {
+      // ── Linha ──
+      const receita  = [420, 380, 510, 460, 490, 530, 480, 560, 500, 620, 590, 650];
+      const despesas = [310, 340, 290, 400, 370, 310, 450, 390, 420, 480, 430, 500];
+      const yMax     = Math.ceil(Math.max(...receita, ...despesas) / 100) * 100;
+
+      const lCtx = document.getElementById('lineChart').getContext('2d');
+
+      const gradRec = lCtx.createLinearGradient(0, 0, 0, 280);
+      gradRec.addColorStop(0, 'rgba(88,166,255,0.22)');
+      gradRec.addColorStop(1, 'rgba(88,166,255,0)');
+
+      const gradDes = lCtx.createLinearGradient(0, 0, 0, 280);
+      gradDes.addColorStop(0, 'rgba(255,123,114,0.18)');
+      gradDes.addColorStop(1, 'rgba(255,123,114,0)');
+
+      chartInstances.push(new Chart(lCtx, {
+        type: 'line',
+        data: {
+          labels: MONTHS,
+          datasets: [
+            { label:'Receita',  data: receita,  borderColor:'#58a6ff', backgroundColor: gradRec,
+              borderWidth:2.5, pointBackgroundColor:'#58a6ff', pointRadius:4, pointHoverRadius:6, tension:0.4, fill:true },
+            { label:'Despesas', data: despesas, borderColor:'#ff7b72', backgroundColor: gradDes,
+              borderWidth:2.5, pointBackgroundColor:'#ff7b72', pointRadius:4, pointHoverRadius:6, tension:0.4, fill:true },
+          ],
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          interaction: { mode:'index', intersect:false },
+          plugins: {
+            legend: { position:'top', align:'end',
+              labels: { boxWidth:12, padding:16, font:{ size:12 } } },
+            tooltip: {
+              backgroundColor:'#1c2128', borderColor:'#30363d', borderWidth:1,
+              padding:10,
+              callbacks: { label: c => ` ${c.dataset.label}: R$ ${c.parsed.y}` },
+            },
+          },
+          scales: {
+            x: { grid:{ color:'#30363d' }, ticks:{ font:{ size:11 } } },
+            y: {
+              min:0, max: yMax,
+              ticks:{ stepSize:100, font:{ size:11 }, callback: v => 'R$ '+v },
+              grid:{ color:'#30363d' },
+            },
+          },
+        },
+      }));
+
+      // ── Donuts ──
+      const makeDonut = (id, data) => {
+        chartInstances.push(new Chart(document.getElementById(id).getContext('2d'), {
+          type: 'doughnut',
+          data: {
+            labels: CATEGORIES,
+            datasets: [{ data, backgroundColor: CAT_COLORS, borderColor:'#161b22', borderWidth:3, hoverOffset:6 }],
+          },
+          options: {
+            responsive: true, maintainAspectRatio: false, cutout:'62%',
+            plugins: {
+              legend: { position:'right', labels:{ boxWidth:10, padding:10, font:{ size:11 } } },
+              tooltip: {
+                backgroundColor:'#1c2128', borderColor:'#30363d', borderWidth:1, padding:10,
+                callbacks: { label: c => ` ${c.label}: ${c.parsed}%` },
+              },
+            },
+          },
+        }));
+      };
+
+      makeDonut('donutMes', [22, 28, 8, 10, 12, 10, 10]);
+      makeDonut('donutAno', [20, 30, 9, 11, 13,  8,  9]);
+    }
   </script>
 
 </body>
