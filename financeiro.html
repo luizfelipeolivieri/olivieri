@@ -121,8 +121,10 @@
     .table-scroll { overflow-x: auto; }
 
     table {
-      width: 100%; border-collapse: collapse;
-      min-width: calc(var(--col1-w) + 13 * 100px);
+      border-collapse: collapse;
+      table-layout: fixed;
+      width: max-content;
+      min-width: 100%;
     }
 
     /* Header row */
@@ -131,9 +133,10 @@
       padding: 11px 14px; font-size: 11px; font-weight: 600; letter-spacing: .6px;
       text-transform: uppercase; color: var(--muted); white-space: nowrap;
       text-align: right; position: sticky; top: 0; z-index: 10;
+      width: 110px; min-width: 110px;
     }
     thead th:first-child {
-      text-align: left; width: var(--col1-w); min-width: var(--col1-w);
+      text-align: left; width: 190px; min-width: 190px;
       position: sticky; left: 0; z-index: 20; background: var(--surface3);
     }
 
@@ -142,12 +145,12 @@
       background: var(--surface2); border-top: 2px solid var(--border);
       border-bottom: 1px solid var(--border);
       padding: 10px 14px; font-size: 13px; font-weight: 600; color: var(--text);
-      white-space: nowrap;
+      white-space: nowrap; text-align: right;
     }
     tr.cat-row td:first-child {
       position: sticky; left: 0; z-index: 5; background: var(--surface2);
       display: flex; align-items: center; gap: 8px; cursor: pointer;
-      user-select: none;
+      user-select: none; text-align: left;
     }
     tr.cat-row td .chevron {
       display: inline-flex; align-items: center; justify-content: center;
@@ -187,18 +190,43 @@
     }
     tr.total-row td.total-val { text-align: right; font-variant-numeric: tabular-nums; }
 
+    /* ── RENDA row ── */
+    tr.renda-row td {
+      background: var(--surface2); border-top: 1px solid var(--border);
+      padding: 9px 14px; font-size: 13px; font-weight: 600; color: var(--text);
+      white-space: nowrap;
+    }
+    tr.renda-row td:first-child {
+      position: sticky; left: 0; z-index: 5; background: var(--surface2);
+    }
+
+    /* ── RESULTADO row ── */
+    tr.resultado-row td {
+      background: var(--surface3); border-top: 2px solid var(--border);
+      padding: 11px 14px; font-size: 13px; font-weight: 700; white-space: nowrap;
+    }
+    tr.resultado-row td:first-child {
+      position: sticky; left: 0; z-index: 5; background: var(--surface3);
+      color: var(--text);
+    }
+    tr.resultado-row td.resultado-val {
+      text-align: right; font-variant-numeric: tabular-nums;
+    }
+    tr.resultado-row td.positivo { color: var(--green); }
+    tr.resultado-row td.negativo { color: #ff7b72; }
+
     /* ── INPUTS ── */
     .money-input {
-      width: 90px; background: transparent; border: none; border-radius: 6px;
+      width: 100%; background: transparent; border: none; border-radius: 6px;
       padding: 4px 6px; text-align: right; font-family: 'Sora', sans-serif;
       font-size: 13px; color: var(--text); font-variant-numeric: tabular-nums;
       outline: none; transition: background .15s, color .15s;
-      display: block; margin-left: auto;
+      display: block;
     }
     .money-input:focus {
       background: rgba(88,166,255,.08); color: var(--text); outline: none;
     }
-    .money-input::placeholder { color: var(--border); }
+    .money-input::placeholder { color: #3a4149; }
 
     @media (max-width: 640px) {
       aside.sidebar { width: 56px; padding: 16px 8px; }
@@ -330,7 +358,6 @@
 
     function parseBRL(str) {
       if (!str || str.trim() === '') return 0;
-      // Remove separador de milhar (.) e troca vírgula decimal por ponto
       const clean = str.replace(/\./g, '').replace(',', '.');
       const n = parseFloat(clean);
       return isNaN(n) ? 0 : n;
@@ -347,15 +374,28 @@
 
     /* ── UPDATE visual dos totais ── */
     function updateTotals(catId) {
-      // total de cada mês da categoria
       MONTHS.forEach((_, mi) => {
-        const el = document.getElementById(`total-${catId}-${mi}`);
-        if (el) el.textContent = fmtBRL(catTotal(catId, mi));
+        const el  = document.getElementById(`total-${catId}-${mi}`);
+        const val = catTotal(catId, mi);
+        if (el) el.textContent = val === 0 ? '' : fmtBRL(val);
       });
-      // grand total
+      updateGrandAndResultado();
+    }
+
+    function updateGrandAndResultado() {
       MONTHS.forEach((_, mi) => {
-        const el = document.getElementById(`grand-${mi}`);
-        if (el) el.textContent = fmtBRL(grandTotal(mi));
+        const desp    = grandTotal(mi);
+        const renda   = rendaValues[mi];
+        const result  = renda - desp;
+
+        const elGrand = document.getElementById(`grand-${mi}`);
+        if (elGrand) elGrand.textContent = desp === 0 ? '' : fmtBRL(desp);
+
+        const elRes = document.getElementById(`resultado-${mi}`);
+        if (elRes) {
+          elRes.textContent = (renda === 0 && desp === 0) ? '' : fmtBRL(result);
+          elRes.className = 'resultado-val ' + (result >= 0 ? 'positivo' : 'negativo');
+        }
       });
     }
 
@@ -369,6 +409,9 @@
       subRows.forEach(r => r.classList.toggle('hidden-row', !hidden));
       catTd.classList.toggle('collapsed-cat', !hidden);
     }
+
+    /* renda mensal por mês */
+    const rendaValues = new Array(12).fill(0);
 
     /* ── BUILD TABLE ── */
     function buildTable() {
@@ -414,7 +457,7 @@
           const td = document.createElement('td');
           td.className = 'cat-total';
           td.id = `total-${cat.id}-${mi}`;
-          td.textContent = '0,00';
+          td.textContent = '';
           catRow.appendChild(td);
         });
 
@@ -475,23 +518,85 @@
         });
       });
 
-      /* ── Linha Grand Total ── */
+      /* ── Linha Total das Despesas ── */
       const totalRow = document.createElement('tr');
       totalRow.className = 'total-row';
 
       const tdTotalLabel = document.createElement('td');
-      tdTotalLabel.textContent = 'Total Geral';
+      tdTotalLabel.textContent = 'Total das Despesas';
       totalRow.appendChild(tdTotalLabel);
 
       MONTHS.forEach((_, mi) => {
         const td = document.createElement('td');
         td.className = 'total-val';
         td.id = `grand-${mi}`;
-        td.textContent = '0,00';
+        td.textContent = '';
         totalRow.appendChild(td);
       });
 
       tbody.appendChild(totalRow);
+
+      /* ── Linha Renda Mensal ── */
+      const rendaRow = document.createElement('tr');
+      rendaRow.className = 'renda-row';
+
+      const tdRendaLabel = document.createElement('td');
+      tdRendaLabel.textContent = 'Renda Mensal';
+      rendaRow.appendChild(tdRendaLabel);
+
+      MONTHS.forEach((_, mi) => {
+        const td    = document.createElement('td');
+        const input = document.createElement('input');
+        input.type      = 'text';
+        input.className = 'money-input';
+        input.inputMode = 'decimal';
+
+        input.addEventListener('focus', function () {
+          const raw = rendaValues[mi];
+          this.value = raw === 0 ? '' : fmtBRL(raw);
+          this.select();
+        });
+        input.addEventListener('input', function () {
+          this.value = this.value.replace(/[^\d.,]/g, '');
+        });
+        input.addEventListener('blur', function () {
+          const parsed = parseBRL(this.value);
+          rendaValues[mi] = parsed;
+          this.value = parsed === 0 ? '' : fmtBRL(parsed);
+          updateGrandAndResultado();
+        });
+        input.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            const allInputs = Array.from(document.querySelectorAll('.money-input'));
+            const idx = allInputs.indexOf(this);
+            if (idx !== -1 && idx < allInputs.length - 1) allInputs[idx + 1].focus();
+          }
+        });
+
+        td.appendChild(input);
+        rendaRow.appendChild(td);
+      });
+
+      tbody.appendChild(rendaRow);
+
+      /* ── Linha Resultado ── */
+      const resultadoRow = document.createElement('tr');
+      resultadoRow.className = 'resultado-row';
+
+      const tdResLabel = document.createElement('td');
+      tdResLabel.textContent = 'Resultado (renda − despesas)';
+      resultadoRow.appendChild(tdResLabel);
+
+      MONTHS.forEach((_, mi) => {
+        const td = document.createElement('td');
+        td.className = 'resultado-val';
+        td.id = `resultado-${mi}`;
+        td.textContent = '';
+        resultadoRow.appendChild(td);
+      });
+
+      tbody.appendChild(resultadoRow);
       table.appendChild(tbody);
     }
 
